@@ -93,8 +93,8 @@
     .menu {
       position: fixed;
       top: 0;
-      right: -260px;
-      width: 260px;
+      right: -320px;
+      width: 320px;
       height: 100%;
       background: #13293d;
       padding: 80px 20px;
@@ -175,6 +175,31 @@
     #soru {
       background-color: #001122;
     }
+
+    #astronomi-galerisi {
+      background-color: #002233;
+    }
+
+    #bilimsel-sorular {
+      background-color: #003355;
+    }
+
+    #tarih-uzay-yolculuklari {
+      background-color: #001f2f;
+    }
+
+    #uzay-takvimi {
+      background-color: #002844;
+    }
+
+    #bilim-kitaplari {
+      background-color: #001d2d;
+    }
+
+    #ziyaretci-yorumu {
+      background-color: #00304d;
+    }
+
   </style>
 </head>
 <body>
@@ -195,6 +220,12 @@
     <a href="#evren">Evren Bilgisi</a>
     <a href="#bilim">Bilim</a>
     <a href="#soru">Soru</a>
+    <a href="#astronomi-galerisi">Astronomi Galerisi</a>
+    <a href="#bilimsel-sorular">Bilimsel Sorular &amp; Cevaplar</a>
+    <a href="#tarih-uzay-yolculuklari">Tarihte Uzay Yolculukları</a>
+    <a href="#uzay-takvimi">Uzay Takvimi</a>
+    <a href="#bilim-kitaplari">Bilim Kitapları ve Belgeseller</a>
+    <a href="#ziyaretci-yorumu">Ziyaretçi Yorumu / Etkileşim</a>
   </nav>
 
   <!-- Evreni Keşfet Bölümü (En Üstte) -->
@@ -230,74 +261,4 @@
       <p>En yeni bilimsel buluşlar ve evrenin sırları üzerine derinlemesine bilgiler.</p>
       <p><a href="bilim.html" style="color:#00ffff; text-decoration: underline;">Bilim hakkında detaylı bilgi için tıklayın</a></p>
     </div>
-  </section>
-
-  <!-- Soru Bölümü -->
-  <section id="soru">
-    <div class="content">
-      <h1>Işık hızını geçmek mümkün müdür?</h1>
-      <p>Fizik kurallarına göre, ışık hızını geçmek günümüzde mümkün değildir. Ancak teorik modellerde farklı yaklaşımlar tartışılmaktadır.</p>
-      <p><a href="soru.html" style="color:#00ffff; text-decoration: underline;">Bu konuda daha fazla bilgi için tıklayın</a></p>
-    </div>
-  </section>
-
-<script>
-  // Hamburger menü aç/kapat
-  const hamburger = document.getElementById('hamburger');
-  const menu = document.getElementById('menu');
-
-  hamburger.addEventListener('click', () => {
-    menu.classList.toggle('active');
-    hamburger.classList.toggle('active');
-  });
-
-  // Arka plan yıldız animasyonu
-  const canvas = document.getElementById("stars");
-  const ctx = canvas.getContext("2d");
-  let stars = [];
-
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-
-  function createStars() {
-    stars = [];
-    for (let i = 0; i < 70; i++) {
-      stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 1.5,
-        s: Math.random() * 0.4 + 0.1
-      });
-    }
-  }
-
-  function drawStars() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "#00ffff";
-    stars.forEach(star => {
-      ctx.beginPath();
-      ctx.arc(star.x, star.y, star.r, 0, 2 * Math.PI);
-      ctx.fill();
-      star.y += star.s;
-      if (star.y > canvas.height) {
-        star.y = 0;
-        star.x = Math.random() * canvas.width;
-      }
-    });
-    requestAnimationFrame(drawStars);
-  }
-
-  window.addEventListener("resize", () => {
-    resizeCanvas();
-    createStars();
-  });
-
-  resizeCanvas();
-  createStars();
-  drawStars();
-</script>
-
-</body>
-</html>
+ 
