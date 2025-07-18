@@ -18,6 +18,22 @@
       color: #fff;
       overflow-x: hidden;
       height: 100%;
+
+      /* Scroll Snap Ayarları */
+      scroll-snap-type: y mandatory;
+      overflow-y: scroll;
+    }
+
+    /* Bölümlerde scroll snap noktası */
+    section {
+      min-height: 100vh;
+      padding: 100px 20px 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      transition: background-color 0.6s ease;
+      scroll-snap-align: start;  /* Scroll snap hizalaması */
     }
 
     /* Başlangıç ekranı */
@@ -51,35 +67,67 @@
       z-index: -2;
     }
 
-    /* Hamburger Menü */
+    /* Hamburger Menü - Havalı Stil */
     .hamburger {
       position: fixed;
       top: 20px;
       left: 20px;
-      width: 30px;
-      height: 24px;
+      width: 40px;
+      height: 30px;
       cursor: pointer;
       z-index: 999;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      filter: drop-shadow(0 2px 2px rgba(0,255,255,0.3));
+      transition: transform 0.3s ease;
+    }
+
+    .hamburger:hover {
+      transform: scale(1.1);
     }
 
     .hamburger div {
-      background-color: #00ffff;
-      height: 4px;
-      border-radius: 4px;
-      transition: 0.3s ease;
+      background: linear-gradient(90deg, #00ffff, #0080ff);
+      height: 5px;
+      border-radius: 8px;
+      box-shadow: 0 0 6px #00ffff;
+      transition: all 0.4s ease;
+      position: relative;
+    }
+
+    /* Parlama efekti */
+    .hamburger div::before {
+      content: '';
+      position: absolute;
+      top: -4px; left: -10px;
+      width: 20px; height: 12px;
+      background: linear-gradient(120deg, rgba(255,255,255,0.7), rgba(255,255,255,0));
+      border-radius: 10px;
+      filter: blur(8px);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .hamburger:hover div::before {
+      opacity: 1;
     }
 
     .hamburger.active div:nth-child(1) {
-      transform: rotate(45deg) translate(5px, 5px);
+      transform: rotate(45deg) translate(7px, 7px);
+      background: linear-gradient(90deg, #ff00ff, #ff0080);
+      box-shadow: 0 0 8px #ff00ff;
     }
+
     .hamburger.active div:nth-child(2) {
       opacity: 0;
+      transform: translateX(20px);
     }
+
     .hamburger.active div:nth-child(3) {
-      transform: rotate(-45deg) translate(6px, -6px);
+      transform: rotate(-45deg) translate(7px, -7px);
+      background: linear-gradient(90deg, #ff00ff, #ff0080);
+      box-shadow: 0 0 8px #ff00ff;
     }
 
     .menu {
@@ -113,16 +161,6 @@
     }
 
     /* Bölümler */
-    section {
-      min-height: 100vh;
-      padding: 100px 20px 60px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      transition: background-color 0.6s ease;
-    }
-
     .content {
       max-width: 700px;
       padding: 30px;
@@ -130,9 +168,11 @@
       border-radius: 16px;
       box-shadow: 0 0 20px rgba(0,255,255,0.2);
       color: #e0e0e0;
+
+      /* Animasyon başlangıç (scroll ile gösterilecek) */
       opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.8s ease;
+      transform: translateY(50px);
+      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
     }
 
     .content.visible {
@@ -153,20 +193,6 @@
     }
 
     /* Bölümlere özel arka plan renkleri */
-    #splash {
-      background-color: #001f3f; /* Koyu lacivert */
-      color: #00ffff;
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      font-size: 2.5rem;
-      padding: 0 20px;
-      z-index: 1;
-    }
-
     #haberler {
       background-color: #001f3f; /* Koyu lacivert */
     }
@@ -174,42 +200,30 @@
     #evren {
       background-color: #00334d; /* Daha açık mavi-yeşil */
     }
-
-    #bilim {
-      background-color: #004d66; /* Daha açık mavi */
-    }
-
-    #takim {
-      background-color: #006680; /* Yeşilimsi mavi */
-    }
-
   </style>
 </head>
 <body>
 
   <!-- Başlangıç Ekranı -->
-  <section id="splash" class="content visible">
-    <h1>Evreni Keşfet</h1>
+  <div id="splash">
+    Evreni Keşfet
     <small>Daha fazla bilgi için aşağı kaydırın</small>
-  </section>
+  </div>
 
   <!-- Arka plan yıldızlar -->
   <canvas id="stars"></canvas>
 
   <!-- Hamburger Menü -->
-  <div class="hamburger" id="hamburger" aria-label="Menu">
+  <div class="hamburger" id="hamburger">
     <div></div>
     <div></div>
     <div></div>
   </div>
 
   <!-- Menü -->
-  <nav class="menu" id="menu" aria-label="Site Navigation">
-    <a href="#splash">Ana Sayfa</a>
+  <nav class="menu" id="menu">
     <a href="#haberler">Yeni Haberler</a>
     <a href="#evren">Evren Bilgisi</a>
-    <a href="#bilim">Bilimsel Konular</a>
-    <a href="#takim">Takım / Hakkımızda</a>
   </nav>
 
   <!-- Yeni Haberler Bölümü -->
@@ -217,6 +231,7 @@
     <div class="content">
       <h1>Yeni Haberler</h1>
       <p>Bilim ve uzayla ilgili en son gelişmeleri burada bulabilirsiniz.</p>
+      <p><a href="yeni-haberler.html" style="color:#00ffff; text-decoration: underline;">Yeni haberleri öğrenmek için tıklayın</a></p>
     </div>
   </section>
 
@@ -225,37 +240,35 @@
     <div class="content">
       <h1>Evrenle İlgili Bilgiler</h1>
       <p>Galaksilerden kara deliklere kadar evrenin derinliklerine doğru bir yolculuğa çıkın.</p>
-    </div>
-  </section>
-
-  <!-- Bilimsel Konular -->
-  <section id="bilim">
-    <div class="content">
-      <h1>Bilimsel Konular</h1>
-      <p>Fizik, kimya, biyoloji ve daha birçok konuda temel bilgiler ve açıklamalar.</p>
-    </div>
-  </section>
-
-  <!-- Takım / Hakkımızda -->
-  <section id="takim">
-    <div class="content">
-      <h1>Takım / Hakkımızda</h1>
-      <p>Bu projeyi geliştiren ekip ve amaçlarımız hakkında bilgiler.</p>
+      <p><a href="evren-bilgisi.html" style="color:#00ffff; text-decoration: underline;">Evren hakkında daha fazla bilgi için tıklayın</a></p>
     </div>
   </section>
 
 <script>
-  // İçerik bölümlerinin animasyonla görünmesini sağla
+  // Splash ekranını hemen gizle, 3 saniye bekleme kaldırıldı
+  window.addEventListener('load', () => {
+    document.getElementById('splash').style.display = 'none';
+    revealContent();  // sayfa yüklendiğinde ilk içerikleri aç
+  });
+
+  // Scroll ile içerik animasyonlarını yönet
   function revealContent() {
-    const sections = document.querySelectorAll('.content');
-    sections.forEach(section => {
-      section.classList.add('visible');
+    const contents = document.querySelectorAll('.content');
+    const triggerBottom = window.innerHeight * 0.85; // görünümün %85 altında içerik görünür
+
+    contents.forEach(content => {
+      const contentTop = content.getBoundingClientRect().top;
+
+      if(contentTop < triggerBottom) {
+        content.classList.add('visible');
+      } else {
+        content.classList.remove('visible');
+      }
     });
   }
 
-  window.addEventListener('load', () => {
-    revealContent();
-  });
+  window.addEventListener('scroll', revealContent);
+  window.addEventListener('load', revealContent);
 
   // Hamburger menü aç/kapat
   const hamburger = document.getElementById('hamburger');
