@@ -3,21 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Yeni Haberler</title>
+  <title>Evreni Keşfet</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
   <style>
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
+      scroll-behavior: smooth;
     }
 
     html, body {
       font-family: 'Poppins', sans-serif;
-      background: #1a103d;
+      background: #0d1b2a;
       color: #fff;
-      height: 100%;
       overflow-x: hidden;
+      height: 100%;
+    }
+
+    #splash {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #001f3f;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #00ffff;
+      font-size: 2.5rem;
+      font-weight: 700;
+      z-index: 9999;
+      flex-direction: column;
+      user-select: none;
+    }
+
+    #splash small {
+      margin-top: 1rem;
+      font-weight: 300;
+      font-size: 1rem;
+      color: #33ffffcc;
     }
 
     canvas {
@@ -47,13 +69,23 @@
       transition: 0.3s ease;
     }
 
+    .hamburger.active div:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .hamburger.active div:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.active div:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
     .menu {
       position: fixed;
       top: 0;
       right: -260px;
       width: 260px;
       height: 100%;
-      background: #2e1f5e;
+      background: #13293d;
       padding: 80px 20px;
       transition: right 0.3s ease;
       z-index: 998;
@@ -61,7 +93,9 @@
       flex-direction: column;
     }
 
-    .menu.active { right: 0; }
+    .menu.active {
+      right: 0;
+    }
 
     .menu a {
       color: #00ffff;
@@ -70,60 +104,126 @@
       font-size: 18px;
     }
 
-    main {
+    section {
       min-height: 100vh;
+      padding: 100px 20px 60px;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 80px 20px;
       text-align: center;
     }
 
     .content {
-      background: rgba(255,255,255,0.06);
+      max-width: 700px;
+      padding: 30px;
+      background: rgba(255,255,255,0.05);
       border-radius: 16px;
       box-shadow: 0 0 20px rgba(0,255,255,0.2);
-      padding: 40px;
-      max-width: 700px;
+      color: #e0e0e0;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease;
+    }
+
+    .content.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     h1 {
       color: #00ffff;
-      font-size: 2.5rem;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
+      font-size: 2.5em;
     }
 
     p {
-      color: #cceeff;
-      font-size: 1.2rem;
+      font-size: 1.15rem;
+      line-height: 1.5;
+      color: #b0f0f0cc;
+    }
+
+    #haberler {
+      background-color: #001f3f;
+    }
+
+    #evren {
+      background-color: #00334d;
+    }
+
+    .link {
+      margin-top: 20px;
+      display: inline-block;
+      background: #00ffff22;
+      padding: 10px 20px;
+      border-radius: 8px;
+      color: #00ffff;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+
+    .link:hover {
+      background: #00ffff44;
     }
   </style>
 </head>
 <body>
 
-<canvas id="stars"></canvas>
-
-<div class="hamburger" onclick="toggleMenu()">
-  <div></div><div></div><div></div>
-</div>
-
-<nav class="menu" id="menu">
-  <a href="index.html#haberler">Ana Sayfa</a>
-  <a href="evren.html">Evren Bilgisi</a>
-</nav>
-
-<main>
-  <div class="content">
-    <h1>Yeni Haberler</h1>
-    <p>Uzay ajanslarından en güncel haberleri buradan takip edebilirsiniz.</p>
+  <div id="splash">
+    Evreni Keşfet
+    <small>Daha fazla bilgi için aşağı kaydırın</small>
   </div>
-</main>
+
+  <canvas id="stars"></canvas>
+
+  <div class="hamburger" id="hamburger">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <nav class="menu" id="menu">
+    <a href="#haberler">Yeni Haberler</a>
+    <a href="#evren">Evren Bilgisi</a>
+  </nav>
+
+  <section id="haberler">
+    <div class="content">
+      <h1>Yeni Haberler</h1>
+      <p>Bilim ve uzayla ilgili en son gelişmeleri burada bulabilirsiniz.</p>
+      <a class="link" href="haberler.html">Yeni haberleri öğrenmek için tıklayın</a>
+    </div>
+  </section>
+
+  <section id="evren">
+    <div class="content">
+      <h1>Evrenle İlgili Bilgiler</h1>
+      <p>Galaksilerden kara deliklere kadar evrenin derinliklerine doğru bir yolculuğa çıkın.</p>
+      <a class="link" href="evren.html">Daha fazla bilgi için tıklayın</a>
+    </div>
+  </section>
 
 <script>
-  const menu = document.getElementById("menu");
-  function toggleMenu() {
-    menu.classList.toggle("active");
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('splash').style.display = 'none';
+      revealContent();
+    }, 3000);
+  });
+
+  function revealContent() {
+    const sections = document.querySelectorAll('.content');
+    sections.forEach(section => {
+      section.classList.add('visible');
+    });
   }
+
+  const hamburger = document.getElementById('hamburger');
+  const menu = document.getElementById('menu');
+
+  hamburger.addEventListener('click', () => {
+    menu.classList.toggle('active');
+    hamburger.classList.toggle('active');
+  });
 
   const canvas = document.getElementById("stars");
   const ctx = canvas.getContext("2d");
@@ -136,7 +236,7 @@
 
   function createStars() {
     stars = [];
-    for (let i = 0; i < 80; i++) {
+    for (let i = 0; i < 70; i++) {
       stars.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
