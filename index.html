@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Bilimsel Site</title>
   <style>
-    /* Sayfa sıfırla ve temel ayarlar */
     html, body {
       margin: 0;
       padding: 0;
@@ -13,17 +12,13 @@
       font-family: Arial, sans-serif;
       overflow-x: hidden;
     }
-
-    /* Arka plan resmi tüm ekranı kaplar */
     body {
-      background: url('SupermassiveBinaryBlackHoles_desktop.png') no-repeat center center fixed;
+      background: url('background.webp') no-repeat center center fixed;
       background-size: cover;
       color: white;
       text-align: center;
       padding-top: 40vh;
     }
-
-    /* İçerik kutusu - yarı saydam arka plan */
     .content {
       background-color: rgba(0,0,0,0.5);
       display: inline-block;
@@ -31,8 +26,6 @@
       border-radius: 10px;
       max-width: 600px;
     }
-
-    /* Hamburger menü ikon */
     .hamburger {
       position: fixed;
       top: 20px;
@@ -51,8 +44,6 @@
       border-radius: 2px;
       transition: 0.3s;
     }
-
-    /* Menü paneli */
     .menu {
       position: fixed;
       top: 0;
@@ -79,8 +70,6 @@
     .menu a:hover {
       text-decoration: underline;
     }
-
-    /* Responsive için metin küçültme */
     @media (max-width: 600px) {
       .content {
         padding: 20px;
@@ -94,14 +83,12 @@
 </head>
 <body>
 
-  <!-- Hamburger menü ikonu -->
   <div class="hamburger" id="hamburger">
     <div></div>
     <div></div>
     <div></div>
   </div>
 
-  <!-- Menü paneli -->
   <nav class="menu" id="menu">
     <a href="#">Ana Sayfa</a>
     <a href="#">Hakkında</a>
@@ -109,7 +96,6 @@
     <a href="#">Blog</a>
   </nav>
 
-  <!-- Ana içerik -->
   <div class="content">
     <h1>Merhaba, GitHub Pages Siteme Hoşgeldin!</h1>
     <p>Bu benim ilk web sayfam.</p>
