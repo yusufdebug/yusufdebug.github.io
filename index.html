@@ -3,19 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Evreni Keşfet</title>
+  <title>Yeni Haberler</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
   <style>
     * {
       box-sizing: border-box;
-      margin: 0; padding: 0;
-      scroll-behavior: smooth;
+      margin: 0;
+      padding: 0;
     }
 
     html, body {
       font-family: 'Poppins', sans-serif;
-      background: #0d1b2a;
+      background: #1a103d;
       color: #fff;
+      height: 100%;
       overflow-x: hidden;
     }
 
@@ -52,7 +53,7 @@
       right: -260px;
       width: 260px;
       height: 100%;
-      background: #13293d;
+      background: #2e1f5e;
       padding: 80px 20px;
       transition: right 0.3s ease;
       z-index: 998;
@@ -69,18 +70,17 @@
       font-size: 18px;
     }
 
-    section {
+    main {
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
+      padding: 80px 20px;
       text-align: center;
-      padding: 60px 20px;
     }
 
     .content {
-      background: rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.06);
       border-radius: 16px;
       box-shadow: 0 0 20px rgba(0,255,255,0.2);
       padding: 40px;
@@ -88,30 +88,14 @@
     }
 
     h1 {
-      font-size: 2.5em;
       color: #00ffff;
+      font-size: 2.5rem;
       margin-bottom: 20px;
     }
 
     p {
-      font-size: 1.1rem;
-      color: #b0f0f0cc;
-    }
-
-    a.button {
-      display: inline-block;
-      margin-top: 20px;
-      background: #00ffff;
-      color: #001f3f;
-      padding: 12px 24px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s ease;
-    }
-
-    a.button:hover {
-      background: #00cccc;
+      color: #cceeff;
+      font-size: 1.2rem;
     }
   </style>
 </head>
@@ -119,32 +103,21 @@
 
 <canvas id="stars"></canvas>
 
-<!-- Menü -->
 <div class="hamburger" onclick="toggleMenu()">
   <div></div><div></div><div></div>
 </div>
+
 <nav class="menu" id="menu">
-  <a href="#haberler">Yeni Haberler</a>
-  <a href="#evren">Evren Bilgisi</a>
+  <a href="index.html#haberler">Ana Sayfa</a>
+  <a href="evren.html">Evren Bilgisi</a>
 </nav>
 
-<!-- Yeni Haberler -->
-<section id="haberler">
+<main>
   <div class="content">
     <h1>Yeni Haberler</h1>
-    <p>Bilim ve uzaya dair en güncel gelişmeleri burada bulabilirsiniz.</p>
-    <a href="haberler.html" class="button">Yeni haberleri öğrenmek için tıklayın</a>
+    <p>Uzay ajanslarından en güncel haberleri buradan takip edebilirsiniz.</p>
   </div>
-</section>
-
-<!-- Evren -->
-<section id="evren">
-  <div class="content">
-    <h1>Evren Bilgisi</h1>
-    <p>Galaksilerden kara deliklere kadar evrenin gizemlerini keşfedin.</p>
-    <a href="evren.html" class="button">Evren hakkında daha fazla bilgi</a>
-  </div>
-</section>
+</main>
 
 <script>
   const menu = document.getElementById("menu");
@@ -198,5 +171,6 @@
   createStars();
   drawStars();
 </script>
+
 </body>
 </html>
