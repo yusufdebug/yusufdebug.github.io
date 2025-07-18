@@ -20,6 +20,30 @@
       height: 100%;
     }
 
+    /* Başlangıç ekranı */
+    #splash {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #001f3f;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #00ffff;
+      font-size: 2.5rem;
+      font-weight: 700;
+      z-index: 9999;
+      flex-direction: column;
+      user-select: none;
+    }
+
+    #splash small {
+      margin-top: 1rem;
+      font-weight: 300;
+      font-size: 1rem;
+      color: #33ffffcc;
+    }
+
+    /* Arka plan yıldızlar */
     canvas {
       position: fixed;
       top: 0; left: 0;
@@ -27,34 +51,67 @@
       z-index: -2;
     }
 
+    /* Hamburger Menü - Havalı Stil */
     .hamburger {
       position: fixed;
       top: 20px;
       left: 20px;
-      width: 30px;
-      height: 24px;
+      width: 40px;
+      height: 30px;
       cursor: pointer;
       z-index: 999;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      filter: drop-shadow(0 2px 2px rgba(0,255,255,0.3));
+      transition: transform 0.3s ease;
+    }
+
+    .hamburger:hover {
+      transform: scale(1.1);
     }
 
     .hamburger div {
-      background-color: #00ffff;
-      height: 4px;
-      border-radius: 4px;
-      transition: 0.3s ease;
+      background: linear-gradient(90deg, #00ffff, #0080ff);
+      height: 5px;
+      border-radius: 8px;
+      box-shadow: 0 0 6px #00ffff;
+      transition: all 0.4s ease;
+      position: relative;
+    }
+
+    /* Parlama efekti */
+    .hamburger div::before {
+      content: '';
+      position: absolute;
+      top: -4px; left: -10px;
+      width: 20px; height: 12px;
+      background: linear-gradient(120deg, rgba(255,255,255,0.7), rgba(255,255,255,0));
+      border-radius: 10px;
+      filter: blur(8px);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .hamburger:hover div::before {
+      opacity: 1;
     }
 
     .hamburger.active div:nth-child(1) {
-      transform: rotate(45deg) translate(5px, 5px);
+      transform: rotate(45deg) translate(7px, 7px);
+      background: linear-gradient(90deg, #ff00ff, #ff0080);
+      box-shadow: 0 0 8px #ff00ff;
     }
+
     .hamburger.active div:nth-child(2) {
       opacity: 0;
+      transform: translateX(20px);
     }
+
     .hamburger.active div:nth-child(3) {
-      transform: rotate(-45deg) translate(6px, -6px);
+      transform: rotate(-45deg) translate(7px, -7px);
+      background: linear-gradient(90deg, #ff00ff, #ff0080);
+      box-shadow: 0 0 8px #ff00ff;
     }
 
     .menu {
@@ -87,6 +144,7 @@
       color: #ffffff;
     }
 
+    /* Bölümler */
     section {
       min-height: 100vh;
       padding: 100px 20px 60px;
@@ -94,6 +152,7 @@
       justify-content: center;
       align-items: center;
       text-align: center;
+      transition: background-color 0.6s ease;
     }
 
     .content {
@@ -103,6 +162,14 @@
       border-radius: 16px;
       box-shadow: 0 0 20px rgba(0,255,255,0.2);
       color: #e0e0e0;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease;
+    }
+
+    .content.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     h1 {
@@ -117,100 +184,74 @@
       color: #b0f0f0cc;
     }
 
-    /* Renkler */
-    #haberler        { background-color: #001f3f; }
-    #evren           { background-color: #00334d; }
-    #galeri          { background-color: #152238; }
-    #sorucevap       { background-color: #1a2c3b; }
-    #tarih           { background-color: #213b4f; }
-    #takvim          { background-color: #27435a; }
-    #kitapbelgesel   { background-color: #2d4d65; }
-    #yorum           { background-color: #355773; }
+    /* Bölümlere özel arka plan renkleri */
+    #haberler {
+      background-color: #001f3f; /* Koyu lacivert */
+    }
+
+    #evren {
+      background-color: #00334d; /* Daha açık mavi-yeşil */
+    }
   </style>
 </head>
 <body>
 
-<!-- Arka plan yıldızlar -->
-<canvas id="stars"></canvas>
-
-<!-- Hamburger Menü -->
-<div class="hamburger" id="hamburger">
-  <div></div>
-  <div></div>
-  <div></div>
-</div>
-
-<!-- Menü -->
-<nav class="menu" id="menu">
-  <a href="#haberler">Yeni Haberler</a>
-  <a href="#evren">Evren Bilgisi</a>
-  <a href="#galeri">Astronomi Galerisi</a>
-  <a href="#sorucevap">Bilimsel Sorular</a>
-  <a href="#tarih">Uzay Yolculukları</a>
-  <a href="#takvim">Uzay Takvimi</a>
-  <a href="#kitapbelgesel">Kitap & Belgeseller</a>
-  <a href="#yorum">Yorum / Katılım</a>
-</nav>
-
-<!-- Bölümler -->
-<section id="haberler">
-  <div class="content">
-    <h1>Yeni Haberler</h1>
-    <p>Bilim ve uzayla ilgili en son gelişmeleri burada bulabilirsiniz.</p>
+  <!-- Başlangıç Ekranı -->
+  <div id="splash">
+    Evreni Keşfet
+    <small>Daha fazla bilgi için aşağı kaydırın</small>
   </div>
-</section>
 
-<section id="evren">
-  <div class="content">
-    <h1>Evren Bilgisi</h1>
-    <p>Galaksilerden kara deliklere kadar evrenin derinliklerine doğru bir yolculuğa çıkın.</p>
-  </div>
-</section>
+  <!-- Arka plan yıldızlar -->
+  <canvas id="stars"></canvas>
 
-<section id="galeri">
-  <div class="content">
-    <h1>Astronomi Galerisi</h1>
-    <p>Uzayın büyüleyici görüntülerini burada keşfedin.</p>
+  <!-- Hamburger Menü -->
+  <div class="hamburger" id="hamburger">
+    <div></div>
+    <div></div>
+    <div></div>
   </div>
-</section>
 
-<section id="sorucevap">
-  <div class="content">
-    <h1>Bilimsel Sorular</h1>
-    <p>"Işık hızını geçmek mümkün mü?" gibi ilgi çekici sorulara cevaplar burada.</p>
-  </div>
-</section>
+  <!-- Menü -->
+  <nav class="menu" id="menu">
+    <a href="#haberler">Yeni Haberler</a>
+    <a href="#evren">Evren Bilgisi</a>
+  </nav>
 
-<section id="tarih">
-  <div class="content">
-    <h1>Uzay Yolculukları</h1>
-    <p>İnsanlığın uzaya açıldığı önemli tarihleri keşfedin.</p>
-  </div>
-</section>
+  <!-- Yeni Haberler Bölümü -->
+  <section id="haberler">
+    <div class="content">
+      <h1>Yeni Haberler</h1>
+      <p>Bilim ve uzayla ilgili en son gelişmeleri burada bulabilirsiniz.</p>
+      <p><a href="yeni-haberler.html" style="color:#00ffff; text-decoration: underline;">Yeni haberleri öğrenmek için tıklayın</a></p>
+    </div>
+  </section>
 
-<section id="takvim">
-  <div class="content">
-    <h1>Uzay Takvimi</h1>
-    <p>Meteor yağmurları, tutulmalar ve diğer gökyüzü olayları için takipte kalın.</p>
-  </div>
-</section>
-
-<section id="kitapbelgesel">
-  <div class="content">
-    <h1>Kitaplar & Belgeseller</h1>
-    <p>Evrenle ilgili derinlemesine bilgi için kaynak önerileri burada.</p>
-  </div>
-</section>
-
-<section id="yorum">
-  <div class="content">
-    <h1>Yorum Yap / Katıl</h1>
-    <p>Senin de düşüncelerin bizim için önemli! Yakında etkileşimli alanlar eklenecek.</p>
-  </div>
-</section>
+  <!-- Evren Bölümü -->
+  <section id="evren">
+    <div class="content">
+      <h1>Evrenle İlgili Bilgiler</h1>
+      <p>Galaksilerden kara deliklere kadar evrenin derinliklerine doğru bir yolculuğa çıkın.</p>
+      <p><a href="evren-bilgisi.html" style="color:#00ffff; text-decoration: underline;">Evren hakkında daha fazla bilgi için tıklayın</a></p>
+    </div>
+  </section>
 
 <script>
-  // Hamburger Menü
+  // Splash ekranını hemen gizle, 3 saniye bekleme kaldırıldı
+  window.addEventListener('load', () => {
+    document.getElementById('splash').style.display = 'none';
+    revealContent();
+  });
+
+  // İçerik bölümlerinin animasyonla görünmesini sağla
+  function revealContent() {
+    const sections = document.querySelectorAll('.content');
+    sections.forEach(section => {
+      section.classList.add('visible');
+    });
+  }
+
+  // Hamburger menü aç/kapat
   const hamburger = document.getElementById('hamburger');
   const menu = document.getElementById('menu');
 
@@ -265,6 +306,8 @@
   resizeCanvas();
   createStars();
   drawStars();
+
 </script>
+
 </body>
 </html>
