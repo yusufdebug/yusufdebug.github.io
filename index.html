@@ -20,10 +20,11 @@
       height: 100%;
     }
 
-    /* Başlangıç ekranı */
+    /* Başlangıç ekranı - kaydırma açık */
     #splash {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
+      position: relative; /* fixed değil */
+      width: 100%;
+      height: 100vh;
       background: #001f3f;
       display: flex;
       justify-content: center;
@@ -31,9 +32,19 @@
       color: #00ffff;
       font-size: 2.5rem;
       font-weight: 700;
-      z-index: 9999;
       flex-direction: column;
       user-select: none;
+      opacity: 1;
+      transition: opacity 1.5s ease;
+      z-index: 10;
+    }
+
+    #splash.hide {
+      opacity: 0;
+      pointer-events: none;
+      user-select: none;
+      height: 0;
+      overflow: hidden;
     }
 
     #splash small {
@@ -117,8 +128,8 @@
     .menu {
       position: fixed;
       top: 0;
-      right: -280px;
-      width: 280px;
+      right: -260px;
+      width: 260px;
       height: 100%;
       background: #13293d;
       padding: 80px 20px;
@@ -153,7 +164,6 @@
       align-items: center;
       text-align: center;
       transition: background-color 0.6s ease;
-      position: relative;
     }
 
     .content {
@@ -187,24 +197,21 @@
 
     /* Bölümlere özel arka plan renkleri */
     #haberler {
-      background-color: #001f3f;
-    }
-    #evren {
-      background-color: #00334d;
-    }
-    #teknoloji {
-      background-color: #004466;
-    }
-    #kesif {
-      background-color: #005577;
-    }
-    #galaksi {
-      background-color: #006688;
-    }
-    #isik-hizi {
-      background-color: #007799;
+      background-color: #001f3f; /* Koyu lacivert */
     }
 
+    #evren {
+      background-color: #00334d; /* Daha açık mavi-yeşil */
+    }
+
+    /* Yeni eklenen bölümler için örnek renkler */
+    #bilim {
+      background-color: #002a4a;
+    }
+
+    #soru {
+      background-color: #001122;
+    }
   </style>
 </head>
 <body>
@@ -219,20 +226,18 @@
   <canvas id="stars"></canvas>
 
   <!-- Hamburger Menü -->
-  <div class="hamburger" id="hamburger" aria-label="Menüyü aç/kapat" role="button" tabindex="0">
+  <div class="hamburger" id="hamburger">
     <div></div>
     <div></div>
     <div></div>
   </div>
 
   <!-- Menü -->
-  <nav class="menu" id="menu" aria-label="Ana menü">
+  <nav class="menu" id="menu">
     <a href="#haberler">Yeni Haberler</a>
     <a href="#evren">Evren Bilgisi</a>
-    <a href="#teknoloji">Teknoloji</a>
-    <a href="#kesif">Keşifler</a>
-    <a href="#galaksi">Galaksiler</a>
-    <a href="#isik-hizi">Işık Hızını Geçmek</a>
+    <a href="#bilim">Bilim</a>
+    <a href="#soru">Soru</a>
   </nav>
 
   <!-- Yeni Haberler Bölümü -->
@@ -253,63 +258,40 @@
     </div>
   </section>
 
-  <!-- Teknoloji Bölümü -->
-  <section id="teknoloji">
+  <!-- Bilim Bölümü -->
+  <section id="bilim">
     <div class="content">
-      <h1>Uzay Teknolojileri</h1>
-      <p>En gelişmiş roketler, uzay araçları ve teknolojik yenilikleri keşfedin.</p>
-      <p><a href="teknoloji.html" style="color:#00ffff; text-decoration: underline;">Detaylar için tıklayın</a></p>
+      <h1>Bilimsel Keşifler</h1>
+      <p>En yeni bilimsel buluşlar ve evrenin sırları üzerine derinlemesine bilgiler.</p>
+      <p><a href="bilim.html" style="color:#00ffff; text-decoration: underline;">Bilim hakkında detaylı bilgi için tıklayın</a></p>
     </div>
   </section>
 
-  <!-- Keşifler Bölümü -->
-  <section id="kesif">
+  <!-- Soru Bölümü -->
+  <section id="soru">
     <div class="content">
-      <h1>Uzay Keşifleri</h1>
-      <p>Son yıllarda yapılan önemli uzay keşiflerini inceleyin ve evrenin sırlarına tanık olun.</p>
-      <p><a href="kesifler.html" style="color:#00ffff; text-decoration: underline;">Keşifler hakkında daha fazla bilgi</a></p>
-    </div>
-  </section>
-
-  <!-- Galaksiler Bölümü -->
-  <section id="galaksi">
-    <div class="content">
-      <h1>Galaksiler</h1>
-      <p>Farklı galaksi türleri, yapıları ve evrendeki yerleri hakkında bilgiler.</p>
-      <p><a href="galaksiler.html" style="color:#00ffff; text-decoration: underline;">Galaksiler hakkında daha fazla bilgi</a></p>
-    </div>
-  </section>
-
-  <!-- Işık Hızını Geçmek Mümkün mü? Bölümü -->
-  <section id="isik-hizi">
-    <div class="content">
-      <h1>Işık Hızını Geçmek Mümkün mü?</h1>
-      <p>Fizik kurallarına göre ışık hızını aşmak mümkün değildir, ancak teorik olarak bazı kuantum ve kara delik çalışmaları bu konuda heyecan vericidir.</p>
-      <p>Sizce ışık hızını aşmak mümkün mü? Yorumlarınızı bekliyoruz!</p>
+      <h1>Işık hızını geçmek mümkün müdür?</h1>
+      <p>Fizik kurallarına göre, ışık hızını geçmek günümüzde mümkün değildir. Ancak teorik modellerde farklı yaklaşımlar tartışılmaktadır.</p>
+      <p><a href="soru.html" style="color:#00ffff; text-decoration: underline;">Bu konuda daha fazla bilgi için tıklayın</a></p>
     </div>
   </section>
 
 <script>
-  // Splash ekranını gizle, içerikleri göster
+  // Splash ekranını yumuşak gizle
   window.addEventListener('load', () => {
-    document.getElementById('splash').style.display = 'none';
-    revealContent();
+    setTimeout(() => {
+      const splash = document.getElementById('splash');
+      splash.classList.add('hide');
+      revealContent();
+    }, 2000); // 2 saniye sonra kaybolsun
   });
 
-  // Scroll ile içerik görünürlüğü animasyonu
+  // İçerik bölümlerinin animasyonla görünmesini sağla
   function revealContent() {
-    const contents = document.querySelectorAll('.content');
-    function checkVisibility() {
-      const windowBottom = window.innerHeight + window.scrollY;
-      contents.forEach(content => {
-        const contentTop = content.offsetTop;
-        if (windowBottom > contentTop + 100) {
-          content.classList.add('visible');
-        }
-      });
-    }
-    checkVisibility();
-    window.addEventListener('scroll', checkVisibility);
+    const sections = document.querySelectorAll('.content');
+    sections.forEach(section => {
+      section.classList.add('visible');
+    });
   }
 
   // Hamburger menü aç/kapat
@@ -319,14 +301,6 @@
   hamburger.addEventListener('click', () => {
     menu.classList.toggle('active');
     hamburger.classList.toggle('active');
-  });
-
-  // Klavyeden Enter veya Space ile hamburger aç/kapat (erişilebilirlik)
-  hamburger.addEventListener('keydown', (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      hamburger.click();
-    }
   });
 
   // Arka plan yıldız animasyonu
@@ -341,12 +315,12 @@
 
   function createStars() {
     stars = [];
-    for (let i = 0; i < 80; i++) {
+    for (let i = 0; i < 70; i++) {
       stars.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        r: Math.random() * 1.5 + 0.3,
-        s: Math.random() * 0.5 + 0.1
+        r: Math.random() * 1.5,
+        s: Math.random() * 0.4 + 0.1
       });
     }
   }
@@ -375,7 +349,6 @@
   resizeCanvas();
   createStars();
   drawStars();
-
 </script>
 
 </body>
