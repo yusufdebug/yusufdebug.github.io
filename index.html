@@ -18,10 +18,6 @@
       color: #fff;
       overflow-x: hidden;
       height: 100%;
-
-      /* SCROLL SNAP EKLENDİ */
-      scroll-snap-type: y mandatory;
-      overflow-y: scroll;
     }
 
     /* Başlangıç ekranı */
@@ -38,7 +34,6 @@
       z-index: 9999;
       flex-direction: column;
       user-select: none;
-      transition: opacity 0.5s ease;
     }
 
     #splash small {
@@ -122,8 +117,8 @@
     .menu {
       position: fixed;
       top: 0;
-      right: -260px;
-      width: 260px;
+      right: -280px;
+      width: 280px;
       height: 100%;
       background: #13293d;
       padding: 80px 20px;
@@ -158,9 +153,7 @@
       align-items: center;
       text-align: center;
       transition: background-color 0.6s ease;
-
-      /* SCROLL SNAP EKLENDİ */
-      scroll-snap-align: start;
+      position: relative;
     }
 
     .content {
@@ -170,7 +163,6 @@
       border-radius: 16px;
       box-shadow: 0 0 20px rgba(0,255,255,0.2);
       color: #e0e0e0;
-
       opacity: 0;
       transform: translateY(40px);
       transition: all 0.8s ease;
@@ -195,12 +187,24 @@
 
     /* Bölümlere özel arka plan renkleri */
     #haberler {
-      background-color: #001f3f; /* Koyu lacivert */
+      background-color: #001f3f;
+    }
+    #evren {
+      background-color: #00334d;
+    }
+    #teknoloji {
+      background-color: #004466;
+    }
+    #kesif {
+      background-color: #005577;
+    }
+    #galaksi {
+      background-color: #006688;
+    }
+    #isik-hizi {
+      background-color: #007799;
     }
 
-    #evren {
-      background-color: #00334d; /* Daha açık mavi-yeşil */
-    }
   </style>
 </head>
 <body>
@@ -215,16 +219,20 @@
   <canvas id="stars"></canvas>
 
   <!-- Hamburger Menü -->
-  <div class="hamburger" id="hamburger">
+  <div class="hamburger" id="hamburger" aria-label="Menüyü aç/kapat" role="button" tabindex="0">
     <div></div>
     <div></div>
     <div></div>
   </div>
 
   <!-- Menü -->
-  <nav class="menu" id="menu">
+  <nav class="menu" id="menu" aria-label="Ana menü">
     <a href="#haberler">Yeni Haberler</a>
     <a href="#evren">Evren Bilgisi</a>
+    <a href="#teknoloji">Teknoloji</a>
+    <a href="#kesif">Keşifler</a>
+    <a href="#galaksi">Galaksiler</a>
+    <a href="#isik-hizi">Işık Hızını Geçmek</a>
   </nav>
 
   <!-- Yeni Haberler Bölümü -->
@@ -245,31 +253,63 @@
     </div>
   </section>
 
-<script>
-  // Splash ekranını yumuşak gizle
-  window.addEventListener('load', () => {
-    const splash = document.getElementById('splash');
-    splash.style.transition = 'opacity 0.6s ease';
-    splash.style.opacity = '0';
-    setTimeout(() => splash.style.display = 'none', 600);
+  <!-- Teknoloji Bölümü -->
+  <section id="teknoloji">
+    <div class="content">
+      <h1>Uzay Teknolojileri</h1>
+      <p>En gelişmiş roketler, uzay araçları ve teknolojik yenilikleri keşfedin.</p>
+      <p><a href="teknoloji.html" style="color:#00ffff; text-decoration: underline;">Detaylar için tıklayın</a></p>
+    </div>
+  </section>
 
-    // Bölümlerin görünür animasyonunu başlat
-    observeSections();
+  <!-- Keşifler Bölümü -->
+  <section id="kesif">
+    <div class="content">
+      <h1>Uzay Keşifleri</h1>
+      <p>Son yıllarda yapılan önemli uzay keşiflerini inceleyin ve evrenin sırlarına tanık olun.</p>
+      <p><a href="kesifler.html" style="color:#00ffff; text-decoration: underline;">Keşifler hakkında daha fazla bilgi</a></p>
+    </div>
+  </section>
+
+  <!-- Galaksiler Bölümü -->
+  <section id="galaksi">
+    <div class="content">
+      <h1>Galaksiler</h1>
+      <p>Farklı galaksi türleri, yapıları ve evrendeki yerleri hakkında bilgiler.</p>
+      <p><a href="galaksiler.html" style="color:#00ffff; text-decoration: underline;">Galaksiler hakkında daha fazla bilgi</a></p>
+    </div>
+  </section>
+
+  <!-- Işık Hızını Geçmek Mümkün mü? Bölümü -->
+  <section id="isik-hizi">
+    <div class="content">
+      <h1>Işık Hızını Geçmek Mümkün mü?</h1>
+      <p>Fizik kurallarına göre ışık hızını aşmak mümkün değildir, ancak teorik olarak bazı kuantum ve kara delik çalışmaları bu konuda heyecan vericidir.</p>
+      <p>Sizce ışık hızını aşmak mümkün mü? Yorumlarınızı bekliyoruz!</p>
+    </div>
+  </section>
+
+<script>
+  // Splash ekranını gizle, içerikleri göster
+  window.addEventListener('load', () => {
+    document.getElementById('splash').style.display = 'none';
+    revealContent();
   });
 
-  // Intersection Observer ile content bölümlerine animasyon
-  function observeSections() {
-    const sections = document.querySelectorAll('.content');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target); // Tekrar animasyon olmasın diye
+  // Scroll ile içerik görünürlüğü animasyonu
+  function revealContent() {
+    const contents = document.querySelectorAll('.content');
+    function checkVisibility() {
+      const windowBottom = window.innerHeight + window.scrollY;
+      contents.forEach(content => {
+        const contentTop = content.offsetTop;
+        if (windowBottom > contentTop + 100) {
+          content.classList.add('visible');
         }
       });
-    }, { threshold: 0.3 });
-
-    sections.forEach(section => observer.observe(section));
+    }
+    checkVisibility();
+    window.addEventListener('scroll', checkVisibility);
   }
 
   // Hamburger menü aç/kapat
@@ -279,6 +319,14 @@
   hamburger.addEventListener('click', () => {
     menu.classList.toggle('active');
     hamburger.classList.toggle('active');
+  });
+
+  // Klavyeden Enter veya Space ile hamburger aç/kapat (erişilebilirlik)
+  hamburger.addEventListener('keydown', (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      hamburger.click();
+    }
   });
 
   // Arka plan yıldız animasyonu
@@ -293,12 +341,12 @@
 
   function createStars() {
     stars = [];
-    for (let i = 0; i < 70; i++) {
+    for (let i = 0; i < 80; i++) {
       stars.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        r: Math.random() * 1.5,
-        s: Math.random() * 0.4 + 0.1
+        r: Math.random() * 1.5 + 0.3,
+        s: Math.random() * 0.5 + 0.1
       });
     }
   }
@@ -327,6 +375,7 @@
   resizeCanvas();
   createStars();
   drawStars();
+
 </script>
 
 </body>
