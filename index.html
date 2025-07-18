@@ -10,13 +10,12 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      scroll-behavior: smooth;
     }
     html, body {
-      height: 100%;
       font-family: 'Poppins', sans-serif;
       background-color: #000;
       color: #fff;
-      overflow: hidden;
     }
     canvas {
       position: fixed;
@@ -40,7 +39,6 @@
       background-color: #0ff;
       height: 4px;
       border-radius: 4px;
-      transition: all 0.3s ease;
     }
     .menu {
       position: fixed;
@@ -65,40 +63,34 @@
       margin-bottom: 25px;
       font-size: 18px;
       font-weight: 500;
-      transition: color 0.2s;
     }
     .menu a:hover {
       color: #fff;
     }
-    .content {
+    section {
+      min-height: 100vh;
+      padding: 100px 20px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      margin-top: 35vh;
+    }
+    .section-content {
+      max-width: 700px;
       padding: 30px;
       background: rgba(255, 255, 255, 0.05);
       border: 2px solid #0ff;
       border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
     }
-    .content h1 {
-      font-size: 28px;
-      margin-bottom: 15px;
+    h1 {
       color: #0ff;
+      margin-bottom: 15px;
     }
-    .content p {
-      font-size: 16px;
+    p {
       color: #ccc;
-    }
-    @media (max-width: 600px) {
-      .content {
-        padding: 20px;
-        margin-top: 25vh;
-      }
-      .menu {
-        width: 220px;
-      }
+      font-size: 16px;
     }
   </style>
 </head>
@@ -106,76 +98,40 @@
 
   <canvas id="stars"></canvas>
 
+  <!-- Hamburger Menü -->
   <div class="hamburger" id="hamburger">
     <div></div>
     <div></div>
     <div></div>
   </div>
 
+  <!-- Menü -->
   <nav class="menu" id="menu">
-    <a href="#">Ana Sayfa</a>
-    <a href="#">Hakkında</a>
-    <a href="#">İletişim</a>
-    <a href="#">Blog</a>
+    <a href="#haberler">Yeni Haberler</a>
+    <a href="#evren">Evren Bilgileri</a>
   </nav>
 
-  <div class="content">
-    <h1>Evrenin derinliklerine doğru bilgi yolculuğuna hoş geldiniz!</h1>
-    <p>Evren hakkında daha çok şey öğrenmek için sol üstteki 3 çizgiye tıklayın.</p>
-  </div>
+  <!-- Bölüm 1: Yeni Haberler -->
+  <section id="haberler">
+    <div class="section-content">
+      <h1>Yeni Haberler</h1>
+      <p>En güncel bilimsel gelişmeleri ve evrenle ilgili haberleri burada keşfedin.</p>
+    </div>
+  </section>
+
+  <!-- Bölüm 2: Evren Hakkında -->
+  <section id="evren">
+    <div class="section-content">
+      <h1>Evrenle İlgili Bilgiler</h1>
+      <p>Galaksilerden karadeliklere, ışık hızından kuantum fiziğine kadar evrenin sırları burada.</p>
+    </div>
+  </section>
 
   <script>
-    // Hamburger menü
+    // Hamburger menü kontrolü
     const hamburger = document.getElementById('hamburger');
     const menu = document.getElementById('menu');
     hamburger.addEventListener('click', () => {
       menu.classList.toggle('active');
     });
 
-    // Yıldızlı arka plan
-    const canvas = document.getElementById("stars");
-    const ctx = canvas.getContext("2d");
-    let stars = [];
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-
-    window.addEventListener("resize", resizeCanvas);
-    resizeCanvas();
-
-    function createStars() {
-      stars = [];
-      for (let i = 0; i < 100; i++) {
-        stars.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          radius: Math.random() * 1.5,
-          speed: Math.random() * 0.5 + 0.2
-        });
-      }
-    }
-
-    function drawStars() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "#0ff";
-      stars.forEach(star => {
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        ctx.fill();
-        star.y += star.speed;
-        if (star.y > canvas.height) {
-          star.y = 0;
-          star.x = Math.random() * canvas.width;
-        }
-      });
-      requestAnimationFrame(drawStars);
-    }
-
-    createStars();
-    drawStars();
-  </script>
-
-</body>
-</html>
