@@ -2,28 +2,52 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Evreni Keşfet</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
   <style>
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
       scroll-behavior: smooth;
     }
 
     html, body {
       font-family: 'Poppins', sans-serif;
       background: #0d1b2a;
-      color: #ffffff;
+      color: #fff;
       overflow-x: hidden;
+      height: 100%;
     }
 
+    /* Başlangıç ekranı */
+    #splash {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #001f3f;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #00ffff;
+      font-size: 2.5rem;
+      font-weight: 700;
+      z-index: 9999;
+      flex-direction: column;
+      user-select: none;
+    }
+
+    #splash small {
+      margin-top: 1rem;
+      font-weight: 300;
+      font-size: 1rem;
+      color: #33ffffcc;
+    }
+
+    /* Arka plan yıldızlar */
     canvas {
       position: fixed;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
       z-index: -2;
     }
 
@@ -45,6 +69,17 @@
       background-color: #00ffff;
       height: 4px;
       border-radius: 4px;
+      transition: 0.3s ease;
+    }
+
+    .hamburger.active div:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .hamburger.active div:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.active div:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
     }
 
     .menu {
@@ -57,6 +92,8 @@
       padding: 80px 20px;
       transition: right 0.3s ease;
       z-index: 998;
+      display: flex;
+      flex-direction: column;
     }
 
     .menu.active {
@@ -65,16 +102,17 @@
 
     .menu a {
       color: #00ffff;
-      display: block;
       margin-bottom: 20px;
       text-decoration: none;
       font-size: 18px;
+      transition: color 0.3s ease;
     }
 
     .menu a:hover {
       color: #ffffff;
     }
 
+    /* Bölümler */
     section {
       min-height: 100vh;
       padding: 100px 20px 60px;
@@ -82,15 +120,16 @@
       justify-content: center;
       align-items: center;
       text-align: center;
+      transition: background-color 0.6s ease;
     }
 
     .content {
       max-width: 700px;
       padding: 30px;
       background: rgba(255,255,255,0.05);
-      border: 2px solid #00ffff;
       border-radius: 16px;
       box-shadow: 0 0 20px rgba(0,255,255,0.2);
+      color: #e0e0e0;
       opacity: 0;
       transform: translateY(40px);
       transition: all 0.8s ease;
@@ -104,17 +143,34 @@
     h1 {
       color: #00ffff;
       margin-bottom: 16px;
-      font-size: 2em;
+      font-size: 2.5em;
     }
 
     p {
-      color: #cccccc;
+      font-size: 1.15rem;
+      line-height: 1.5;
+      color: #b0f0f0cc;
+    }
+
+    /* Bölümlere özel arka plan renkleri */
+    #haberler {
+      background-color: #001f3f; /* Koyu lacivert */
+    }
+
+    #evren {
+      background-color: #00334d; /* Daha açık mavi-yeşil */
     }
   </style>
 </head>
 <body>
 
-  <!-- Arka Plan (Yıldızlar) -->
+  <!-- Başlangıç Ekranı -->
+  <div id="splash">
+    Evreni Keşfet
+    <small>Daha fazla bilgi için aşağı kaydırın</small>
+  </div>
+
+  <!-- Arka plan yıldızlar -->
   <canvas id="stars"></canvas>
 
   <!-- Hamburger Menü -->
@@ -130,7 +186,7 @@
     <a href="#evren">Evren Bilgisi</a>
   </nav>
 
-  <!-- Yeni Haberler -->
+  <!-- Yeni Haberler Bölümü -->
   <section id="haberler">
     <div class="content">
       <h1>Yeni Haberler</h1>
@@ -138,7 +194,7 @@
     </div>
   </section>
 
-  <!-- Evren Hakkında -->
+  <!-- Evren Bölümü -->
   <section id="evren">
     <div class="content">
       <h1>Evrenle İlgili Bilgiler</h1>
@@ -146,75 +202,80 @@
     </div>
   </section>
 
-  <script>
-    // Hamburger Menü Aç/Kapat
-    const hamburger = document.getElementById('hamburger');
-    const menu = document.getElementById('menu');
-    hamburger.addEventListener('click', () => {
-      menu.classList.toggle('active');
-    });
+<script>
+  // Splash ekranı 3 saniye sonra gizle ve içerik göster
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('splash').style.display = 'none';
+      revealContent();
+    }, 3000);
+  });
 
-    // Kaydırmayla içerik görünme animasyonu
+  // İçerik bölümlerinin animasyonla görünmesini sağla
+  function revealContent() {
     const sections = document.querySelectorAll('.content');
-    const showOnScroll = () => {
-      const trigger = window.innerHeight * 0.85;
-      sections.forEach(section => {
-        const top = section.getBoundingClientRect().top;
-        if (top < trigger) {
-          section.classList.add('visible');
-        }
-      });
-    };
-    window.addEventListener('scroll', showOnScroll);
-    window.addEventListener('load', showOnScroll);
-
-    // Arka plan yıldız animasyonu
-    const canvas = document.getElementById("stars");
-    const ctx = canvas.getContext("2d");
-    let stars = [];
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-
-    function createStars() {
-      stars = [];
-      for (let i = 0; i < 70; i++) {
-        stars.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          r: Math.random() * 1.5,
-          s: Math.random() * 0.4 + 0.1
-        });
-      }
-    }
-
-    function drawStars() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "#00ffff";
-      stars.forEach(star => {
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.r, 0, 2 * Math.PI);
-        ctx.fill();
-        star.y += star.s;
-        if (star.y > canvas.height) {
-          star.y = 0;
-          star.x = Math.random() * canvas.width;
-        }
-      });
-      requestAnimationFrame(drawStars);
-    }
-
-    window.addEventListener("resize", () => {
-      resizeCanvas();
-      createStars();
+    sections.forEach(section => {
+      section.classList.add('visible');
     });
+  }
 
+  // Hamburger menü aç/kapat
+  const hamburger = document.getElementById('hamburger');
+  const menu = document.getElementById('menu');
+
+  hamburger.addEventListener('click', () => {
+    menu.classList.toggle('active');
+    hamburger.classList.toggle('active');
+  });
+
+  // Arka plan yıldız animasyonu
+  const canvas = document.getElementById("stars");
+  const ctx = canvas.getContext("2d");
+  let stars = [];
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  function createStars() {
+    stars = [];
+    for (let i = 0; i < 70; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.5,
+        s: Math.random() * 0.4 + 0.1
+      });
+    }
+  }
+
+  function drawStars() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#00ffff";
+    stars.forEach(star => {
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.r, 0, 2 * Math.PI);
+      ctx.fill();
+      star.y += star.s;
+      if (star.y > canvas.height) {
+        star.y = 0;
+        star.x = Math.random() * canvas.width;
+      }
+    });
+    requestAnimationFrame(drawStars);
+  }
+
+  window.addEventListener("resize", () => {
     resizeCanvas();
     createStars();
-    drawStars();
-  </script>
+  });
+
+  resizeCanvas();
+  createStars();
+  drawStars();
+
+</script>
 
 </body>
 </html>
