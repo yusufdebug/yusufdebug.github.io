@@ -2,33 +2,127 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <title>Hoşgeldiniz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bilimsel Site</title>
   <style>
+    /* Sayfa sıfırla ve temel ayarlar */
     html, body {
-      margin: 0; padding: 0; height: 100%;
-    }
-    img {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
+      margin: 0;
+      padding: 0;
       height: 100%;
-      object-fit: cover;
-      z-index: -1; /* yazıların önünde olmasını sağlar */
-    }
-    .content {
-      position: relative;
-      color: white;
       font-family: Arial, sans-serif;
-      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    /* Arka plan resmi tüm ekranı kaplar */
+    body {
+      background: url('SupermassiveBinaryBlackHoles_desktop.png') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      text-align: center;
+      padding-top: 40vh;
+    }
+
+    /* İçerik kutusu - yarı saydam arka plan */
+    .content {
+      background-color: rgba(0,0,0,0.5);
+      display: inline-block;
+      padding: 30px 40px;
+      border-radius: 10px;
+      max-width: 600px;
+    }
+
+    /* Hamburger menü ikon */
+    .hamburger {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 30px;
+      height: 25px;
+      cursor: pointer;
+      z-index: 1001;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .hamburger div {
+      background-color: white;
+      height: 4px;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    /* Menü paneli */
+    .menu {
+      position: fixed;
+      top: 0;
+      right: -250px;
+      width: 250px;
+      height: 100vh;
+      background-color: #222;
+      color: white;
+      padding: 60px 20px 20px 20px;
+      box-sizing: border-box;
+      transition: right 0.3s ease;
+      z-index: 1000;
+    }
+    .menu.active {
+      right: 0;
+    }
+    .menu a {
+      color: white;
+      display: block;
+      text-decoration: none;
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
+    .menu a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive için metin küçültme */
+    @media (max-width: 600px) {
+      .content {
+        padding: 20px;
+        max-width: 90%;
+      }
+      .menu {
+        width: 200px;
+      }
     }
   </style>
 </head>
 <body>
-  <img src="SupermassiveBinaryBlackHoles_desktop.png" alt="Arka Plan Görseli" />
+
+  <!-- Hamburger menü ikonu -->
+  <div class="hamburger" id="hamburger">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <!-- Menü paneli -->
+  <nav class="menu" id="menu">
+    <a href="#">Ana Sayfa</a>
+    <a href="#">Hakkında</a>
+    <a href="#">İletişim</a>
+    <a href="#">Blog</a>
+  </nav>
+
+  <!-- Ana içerik -->
   <div class="content">
     <h1>Merhaba, GitHub Pages Siteme Hoşgeldin!</h1>
     <p>Bu benim ilk web sayfam.</p>
   </div>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const menu = document.getElementById('menu');
+
+    hamburger.addEventListener('click', () => {
+      menu.classList.toggle('active');
+    });
+  </script>
+
 </body>
 </html>
-
