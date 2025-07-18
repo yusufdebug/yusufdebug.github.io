@@ -2,27 +2,69 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bilimsel Site</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Evreni Keşfet</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
       scroll-behavior: smooth;
     }
+
     html, body {
       font-family: 'Poppins', sans-serif;
-      background-color: #000;
-      color: #fff;
+      background: black;
+      color: white;
+      overflow-x: hidden;
     }
+
     canvas {
       position: fixed;
       top: 0;
       left: 0;
-      z-index: -1;
+      z-index: -2;
     }
+
+    /* GİRİŞ EKRANI */
+    #splash {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      z-index: 10000;
+      transition: opacity 1s ease;
+    }
+
+    #splash h1 {
+      font-size: 32px;
+      color: #0ff;
+      margin-bottom: 20px;
+    }
+
+    #splash button {
+      background: #0ff;
+      color: black;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: background 0.3s ease;
+    }
+
+    #splash button:hover {
+      background: #0cc;
+    }
+
+    /* Hamburger Menü */
     .hamburger {
       position: fixed;
       top: 20px;
@@ -30,71 +72,90 @@
       width: 30px;
       height: 24px;
       cursor: pointer;
-      z-index: 1001;
+      z-index: 999;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
+
     .hamburger div {
       background-color: #0ff;
       height: 4px;
       border-radius: 4px;
     }
+
     .menu {
       position: fixed;
       top: 0;
-      right: -280px;
-      width: 280px;
-      height: 100vh;
-      background-color: #111;
-      color: white;
-      padding: 80px 30px;
-      box-shadow: -4px 0 10px rgba(0, 255, 255, 0.3);
+      right: -260px;
+      width: 260px;
+      height: 100%;
+      background: #111;
+      padding: 80px 20px;
       transition: right 0.3s ease;
-      z-index: 1000;
+      z-index: 998;
     }
+
     .menu.active {
       right: 0;
     }
+
     .menu a {
       color: #0ff;
       display: block;
+      margin-bottom: 20px;
       text-decoration: none;
-      margin-bottom: 25px;
       font-size: 18px;
-      font-weight: 500;
     }
+
     .menu a:hover {
-      color: #fff;
+      color: white;
     }
+
+    /* Bölümler */
     section {
       min-height: 100vh;
       padding: 100px 20px 60px;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
     }
-    .section-content {
+
+    .content {
       max-width: 700px;
       padding: 30px;
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255,255,255,0.05);
       border: 2px solid #0ff;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+      border-radius: 16px;
+      box-shadow: 0 0 15px rgba(0,255,255,0.2);
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease;
     }
+
+    .content.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     h1 {
       color: #0ff;
-      margin-bottom: 15px;
+      margin-bottom: 16px;
     }
+
     p {
       color: #ccc;
-      font-size: 16px;
     }
   </style>
 </head>
 <body>
+
+  <!-- GİRİŞ EKRANI -->
+  <div id="splash">
+    <h1>Evreni Keşfetmeye Hazır mısın?</h1>
+    <button onclick="startSite()">Başla</button>
+  </div>
 
   <canvas id="stars"></canvas>
 
@@ -108,30 +169,102 @@
   <!-- Menü -->
   <nav class="menu" id="menu">
     <a href="#haberler">Yeni Haberler</a>
-    <a href="#evren">Evren Bilgileri</a>
+    <a href="#evren">Evren Bilgisi</a>
   </nav>
 
-  <!-- Bölüm 1: Yeni Haberler -->
+  <!-- Yeni Haberler -->
   <section id="haberler">
-    <div class="section-content">
+    <div class="content">
       <h1>Yeni Haberler</h1>
-      <p>En güncel bilimsel gelişmeleri ve evrenle ilgili haberleri burada keşfedin.</p>
+      <p>En güncel bilim ve uzay haberlerini burada keşfedin.</p>
     </div>
   </section>
 
-  <!-- Bölüm 2: Evren Hakkında -->
+  <!-- Evren Hakkında -->
   <section id="evren">
-    <div class="section-content">
+    <div class="content">
       <h1>Evrenle İlgili Bilgiler</h1>
-      <p>Galaksilerden karadeliklere, ışık hızından kuantum fiziğine kadar evrenin sırları burada.</p>
+      <p>Galaksilerden kara deliklere kadar evrenin sırlarını öğrenin.</p>
     </div>
   </section>
 
   <script>
-    // Hamburger menü kontrolü
+    // Giriş ekranını gizle
+    function startSite() {
+      const splash = document.getElementById('splash');
+      splash.style.opacity = '0';
+      setTimeout(() => splash.style.display = 'none', 1000);
+    }
+
+    // Hamburger menü
     const hamburger = document.getElementById('hamburger');
     const menu = document.getElementById('menu');
     hamburger.addEventListener('click', () => {
       menu.classList.toggle('active');
     });
+
+    // Scroll ile içerikleri animasyonlu göster
+    const sections = document.querySelectorAll('.content');
+    const showOnScroll = () => {
+      const trigger = window.innerHeight * 0.85;
+      sections.forEach(section => {
+        const top = section.getBoundingClientRect().top;
+        if (top < trigger) {
+          section.classList.add('visible');
+        }
+      });
+    };
+    window.addEventListener('scroll', showOnScroll);
+    window.addEventListener('load', showOnScroll);
+
+    // Yıldız animasyonu (performanslı)
+    const canvas = document.getElementById("stars");
+    const ctx = canvas.getContext("2d");
+    let stars = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    function createStars() {
+      stars = [];
+      for (let i = 0; i < 70; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 1.5,
+          s: Math.random() * 0.4 + 0.1
+        });
+      }
+    }
+
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#0ff";
+      stars.forEach(star => {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.r, 0, 2 * Math.PI);
+        ctx.fill();
+        star.y += star.s;
+        if (star.y > canvas.height) {
+          star.y = 0;
+          star.x = Math.random() * canvas.width;
+        }
+      });
+      requestAnimationFrame(drawStars);
+    }
+
+    window.addEventListener("resize", () => {
+      resizeCanvas();
+      createStars();
+    });
+
+    resizeCanvas();
+    createStars();
+    drawStars();
+  </script>
+
+</body>
+</html>
 
