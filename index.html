@@ -20,7 +20,7 @@
       height: 100%;
     }
 
-    /* Başlangıç ekranı */
+    /* Başlangıç Ekranı */
     #splash {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -160,6 +160,53 @@
     #evren {
       background-color: #00334d; /* Daha açık mavi-yeşil */
     }
+
+    /* Yeni Haberler sayfası stili */
+    #haberlerPage {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0, 31, 63, 0.95);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      color: #00ffff;
+      padding: 20px;
+      z-index: 10000;
+      overflow-y: auto;
+    }
+
+    #haberlerPage h1 {
+      margin-top: 20px;
+      font-size: 3rem;
+      text-align: center;
+    }
+
+    #haberlerPage .closeBtn {
+      margin-top: 10px;
+      background-color: #00ffff;
+      border: none;
+      padding: 10px 20px;
+      font-weight: 700;
+      color: #001f3f;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      align-self: flex-end;
+    }
+
+    #haberlerPage .closeBtn:hover {
+      background-color: #33ffff;
+    }
+
+    #haberlerPage .contentText {
+      margin-top: 30px;
+      max-width: 800px;
+      color: #b0f0f0cc;
+      font-size: 1.2rem;
+      line-height: 1.6;
+      text-align: left;
+    }
+
   </style>
 </head>
 <body>
@@ -182,42 +229,40 @@
 
   <!-- Menü -->
   <nav class="menu" id="menu">
-    <a href="#haberler">Yeni Haberler</a>
+    <a href="#" id="openHaberlerLink">Yeni Haberler</a>
     <a href="#evren">Evren Bilgisi</a>
   </nav>
 
-  <!-- Yeni Haberler Bölümü -->
-  <section id="haberler">
-    <div class="content">
-      <h1>Yeni Haberler</h1>
-      <p>Bilim ve uzayla ilgili en son gelişmeleri burada bulabilirsiniz.</p>
-    </div>
-  </section>
-
-  <!-- Evren Bölümü -->
+  <!-- Ana sayfa bölümleri -->
   <section id="evren">
-    <div class="content">
+    <div class="content visible">
       <h1>Evrenle İlgili Bilgiler</h1>
       <p>Galaksilerden kara deliklere kadar evrenin derinliklerine doğru bir yolculuğa çıkın.</p>
     </div>
   </section>
 
+  <!-- Yeni Haberler özel sayfası -->
+  <div id="haberlerPage">
+    <button class="closeBtn" id="closeHaberler">Ana Sayfaya Dön</button>
+    <h1>Yeni Haberler</h1>
+    <div class="contentText">
+      <p>Burada güncel bilim ve uzay haberlerini paylaşabilirsiniz.</p>
+      <ul>
+        <li>Uzay teleskoplarından yeni görüntüler</li>
+        <li>Son keşifler ve araştırmalar</li>
+        <li>Bilim dünyasından önemli gelişmeler</li>
+      </ul>
+      <p>Daha fazla içerik eklendikçe burası genişletilebilir.</p>
+    </div>
+  </div>
+
 <script>
-  // Splash ekranı 3 saniye sonra gizle ve içerik göster
+  // Splash ekranı 3 saniye sonra gizle
   window.addEventListener('load', () => {
     setTimeout(() => {
       document.getElementById('splash').style.display = 'none';
-      revealContent();
     }, 3000);
   });
-
-  // İçerik bölümlerinin animasyonla görünmesini sağla
-  function revealContent() {
-    const sections = document.querySelectorAll('.content');
-    sections.forEach(section => {
-      section.classList.add('visible');
-    });
-  }
 
   // Hamburger menü aç/kapat
   const hamburger = document.getElementById('hamburger');
@@ -226,6 +271,29 @@
   hamburger.addEventListener('click', () => {
     menu.classList.toggle('active');
     hamburger.classList.toggle('active');
+  });
+
+  // Yeni Haberler sayfasını aç/kapat
+  const openHaberlerLink = document.getElementById('openHaberlerLink');
+  const haberlerPage = document.getElementById('haberlerPage');
+  const closeHaberlerBtn = document.getElementById('closeHaberler');
+
+  openHaberlerLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    // Menü kapat
+    menu.classList.remove('active');
+    hamburger.classList.remove('active');
+    // Yeni Haberler sayfasını göster
+    haberlerPage.style.display = 'flex';
+    // Ana sayfa bölümlerini gizle
+    document.querySelectorAll('section').forEach(s => s.style.display = 'none');
+  });
+
+  closeHaberlerBtn.addEventListener('click', () => {
+    // Yeni Haberler sayfasını gizle
+    haberlerPage.style.display = 'none';
+    // Ana sayfa bölümlerini göster
+    document.querySelectorAll('section').forEach(s => s.style.display = 'flex');
   });
 
   // Arka plan yıldız animasyonu
