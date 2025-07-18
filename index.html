@@ -80,6 +80,11 @@
       margin-bottom: 20px;
       text-decoration: none;
       font-size: 18px;
+      transition: color 0.3s ease;
+    }
+
+    .menu a:hover {
+      color: #ffffff;
     }
 
     section {
@@ -112,81 +117,100 @@
       color: #b0f0f0cc;
     }
 
-    #giris {
-      background-color: #001a33;
-    }
-
-    #haberler {
-      background-color: #001f3f;
-    }
-
-    #evren {
-      background-color: #00334d;
-    }
-
-    .link {
-      margin-top: 20px;
-      display: inline-block;
-      background: #00ffff22;
-      padding: 10px 20px;
-      border-radius: 8px;
-      color: #00ffff;
-      text-decoration: none;
-      transition: 0.3s ease;
-    }
-
-    .link:hover {
-      background: #00ffff44;
-    }
+    /* Renkler */
+    #haberler        { background-color: #001f3f; }
+    #evren           { background-color: #00334d; }
+    #galeri          { background-color: #152238; }
+    #sorucevap       { background-color: #1a2c3b; }
+    #tarih           { background-color: #213b4f; }
+    #takvim          { background-color: #27435a; }
+    #kitapbelgesel   { background-color: #2d4d65; }
+    #yorum           { background-color: #355773; }
   </style>
 </head>
 <body>
 
-  <!-- Arka plan yıldızlar -->
-  <canvas id="stars"></canvas>
+<!-- Arka plan yıldızlar -->
+<canvas id="stars"></canvas>
 
-  <!-- Hamburger Menü -->
-  <div class="hamburger" id="hamburger">
-    <div></div>
-    <div></div>
-    <div></div>
+<!-- Hamburger Menü -->
+<div class="hamburger" id="hamburger">
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+
+<!-- Menü -->
+<nav class="menu" id="menu">
+  <a href="#haberler">Yeni Haberler</a>
+  <a href="#evren">Evren Bilgisi</a>
+  <a href="#galeri">Astronomi Galerisi</a>
+  <a href="#sorucevap">Bilimsel Sorular</a>
+  <a href="#tarih">Uzay Yolculukları</a>
+  <a href="#takvim">Uzay Takvimi</a>
+  <a href="#kitapbelgesel">Kitap & Belgeseller</a>
+  <a href="#yorum">Yorum / Katılım</a>
+</nav>
+
+<!-- Bölümler -->
+<section id="haberler">
+  <div class="content">
+    <h1>Yeni Haberler</h1>
+    <p>Bilim ve uzayla ilgili en son gelişmeleri burada bulabilirsiniz.</p>
   </div>
+</section>
 
-  <!-- Menü -->
-  <nav class="menu" id="menu">
-    <a href="#giris">Giriş</a>
-    <a href="#haberler">Yeni Haberler</a>
-    <a href="#evren">Evren Bilgisi</a>
-  </nav>
+<section id="evren">
+  <div class="content">
+    <h1>Evren Bilgisi</h1>
+    <p>Galaksilerden kara deliklere kadar evrenin derinliklerine doğru bir yolculuğa çıkın.</p>
+  </div>
+</section>
 
-  <!-- Giriş Bölümü -->
-  <section id="giris">
-    <div class="content">
-      <h1>Evreni Keşfet</h1>
-      <p>Daha fazla bilgi için aşağı kaydırın.</p>
-    </div>
-  </section>
+<section id="galeri">
+  <div class="content">
+    <h1>Astronomi Galerisi</h1>
+    <p>Uzayın büyüleyici görüntülerini burada keşfedin.</p>
+  </div>
+</section>
 
-  <!-- Yeni Haberler Bölümü -->
-  <section id="haberler">
-    <div class="content">
-      <h1>Yeni Haberler</h1>
-      <p>Bilim ve uzayla ilgili en son gelişmeleri burada bulabilirsiniz.</p>
-      <a class="link" href="haberler.html">Yeni haberleri öğrenmek için tıklayın</a>
-    </div>
-  </section>
+<section id="sorucevap">
+  <div class="content">
+    <h1>Bilimsel Sorular</h1>
+    <p>"Işık hızını geçmek mümkün mü?" gibi ilgi çekici sorulara cevaplar burada.</p>
+  </div>
+</section>
 
-  <!-- Evren Bilgisi Bölümü -->
-  <section id="evren">
-    <div class="content">
-      <h1>Evrenle İlgili Bilgiler</h1>
-      <p>Galaksilerden kara deliklere kadar evrenin derinliklerine doğru bir yolculuğa çıkın.</p>
-      <a class="link" href="evren.html">Daha fazla bilgi için tıklayın</a>
-    </div>
-  </section>
+<section id="tarih">
+  <div class="content">
+    <h1>Uzay Yolculukları</h1>
+    <p>İnsanlığın uzaya açıldığı önemli tarihleri keşfedin.</p>
+  </div>
+</section>
+
+<section id="takvim">
+  <div class="content">
+    <h1>Uzay Takvimi</h1>
+    <p>Meteor yağmurları, tutulmalar ve diğer gökyüzü olayları için takipte kalın.</p>
+  </div>
+</section>
+
+<section id="kitapbelgesel">
+  <div class="content">
+    <h1>Kitaplar & Belgeseller</h1>
+    <p>Evrenle ilgili derinlemesine bilgi için kaynak önerileri burada.</p>
+  </div>
+</section>
+
+<section id="yorum">
+  <div class="content">
+    <h1>Yorum Yap / Katıl</h1>
+    <p>Senin de düşüncelerin bizim için önemli! Yakında etkileşimli alanlar eklenecek.</p>
+  </div>
+</section>
 
 <script>
-  // Hamburger menü aç/kapat
+  // Hamburger Menü
   const hamburger = document.getElementById('hamburger');
   const menu = document.getElementById('menu');
 
@@ -242,6 +266,5 @@
   createStars();
   drawStars();
 </script>
-
 </body>
 </html>
