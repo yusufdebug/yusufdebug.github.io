@@ -19,21 +19,9 @@
       overflow-x: hidden;
       height: 100%;
 
-      /* Scroll Snap Ayarları */
+      /* SCROLL SNAP EKLENDİ */
       scroll-snap-type: y mandatory;
       overflow-y: scroll;
-    }
-
-    /* Bölümlerde scroll snap noktası */
-    section {
-      min-height: 100vh;
-      padding: 100px 20px 60px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      transition: background-color 0.6s ease;
-      scroll-snap-align: start;  /* Scroll snap hizalaması */
     }
 
     /* Başlangıç ekranı */
@@ -50,6 +38,7 @@
       z-index: 9999;
       flex-direction: column;
       user-select: none;
+      transition: opacity 0.5s ease;
     }
 
     #splash small {
@@ -161,6 +150,19 @@
     }
 
     /* Bölümler */
+    section {
+      min-height: 100vh;
+      padding: 100px 20px 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      transition: background-color 0.6s ease;
+
+      /* SCROLL SNAP EKLENDİ */
+      scroll-snap-align: start;
+    }
+
     .content {
       max-width: 700px;
       padding: 30px;
@@ -169,10 +171,9 @@
       box-shadow: 0 0 20px rgba(0,255,255,0.2);
       color: #e0e0e0;
 
-      /* Animasyon başlangıç (scroll ile gösterilecek) */
       opacity: 0;
-      transform: translateY(50px);
-      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+      transform: translateY(40px);
+      transition: all 0.8s ease;
     }
 
     .content.visible {
@@ -245,30 +246,31 @@
   </section>
 
 <script>
-  // Splash ekranını hemen gizle, 3 saniye bekleme kaldırıldı
+  // Splash ekranını yumuşak gizle
   window.addEventListener('load', () => {
-    document.getElementById('splash').style.display = 'none';
-    revealContent();  // sayfa yüklendiğinde ilk içerikleri aç
+    const splash = document.getElementById('splash');
+    splash.style.transition = 'opacity 0.6s ease';
+    splash.style.opacity = '0';
+    setTimeout(() => splash.style.display = 'none', 600);
+
+    // Bölümlerin görünür animasyonunu başlat
+    observeSections();
   });
 
-  // Scroll ile içerik animasyonlarını yönet
-  function revealContent() {
-    const contents = document.querySelectorAll('.content');
-    const triggerBottom = window.innerHeight * 0.85; // görünümün %85 altında içerik görünür
+  // Intersection Observer ile content bölümlerine animasyon
+  function observeSections() {
+    const sections = document.querySelectorAll('.content');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target); // Tekrar animasyon olmasın diye
+        }
+      });
+    }, { threshold: 0.3 });
 
-    contents.forEach(content => {
-      const contentTop = content.getBoundingClientRect().top;
-
-      if(contentTop < triggerBottom) {
-        content.classList.add('visible');
-      } else {
-        content.classList.remove('visible');
-      }
-    });
+    sections.forEach(section => observer.observe(section));
   }
-
-  window.addEventListener('scroll', revealContent);
-  window.addEventListener('load', revealContent);
 
   // Hamburger menü aç/kapat
   const hamburger = document.getElementById('hamburger');
@@ -325,7 +327,6 @@
   resizeCanvas();
   createStars();
   drawStars();
-
 </script>
 
 </body>
