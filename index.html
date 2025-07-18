@@ -20,28 +20,6 @@
       height: 100%;
     }
 
-    #splash {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: #001f3f;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #00ffff;
-      font-size: 2.5rem;
-      font-weight: 700;
-      z-index: 9999;
-      flex-direction: column;
-      user-select: none;
-    }
-
-    #splash small {
-      margin-top: 1rem;
-      font-weight: 300;
-      font-size: 1rem;
-      color: #33ffffcc;
-    }
-
     canvas {
       position: fixed;
       top: 0; left: 0;
@@ -120,14 +98,6 @@
       border-radius: 16px;
       box-shadow: 0 0 20px rgba(0,255,255,0.2);
       color: #e0e0e0;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.8s ease;
-    }
-
-    .content.visible {
-      opacity: 1;
-      transform: translateY(0);
     }
 
     h1 {
@@ -140,6 +110,10 @@
       font-size: 1.15rem;
       line-height: 1.5;
       color: #b0f0f0cc;
+    }
+
+    #giris {
+      background-color: #001a33;
     }
 
     #haberler {
@@ -168,24 +142,32 @@
 </head>
 <body>
 
-  <div id="splash">
-    Evreni Keşfet
-    <small>Daha fazla bilgi için aşağı kaydırın</small>
-  </div>
-
+  <!-- Arka plan yıldızlar -->
   <canvas id="stars"></canvas>
 
+  <!-- Hamburger Menü -->
   <div class="hamburger" id="hamburger">
     <div></div>
     <div></div>
     <div></div>
   </div>
 
+  <!-- Menü -->
   <nav class="menu" id="menu">
+    <a href="#giris">Giriş</a>
     <a href="#haberler">Yeni Haberler</a>
     <a href="#evren">Evren Bilgisi</a>
   </nav>
 
+  <!-- Giriş Bölümü -->
+  <section id="giris">
+    <div class="content">
+      <h1>Evreni Keşfet</h1>
+      <p>Daha fazla bilgi için aşağı kaydırın.</p>
+    </div>
+  </section>
+
+  <!-- Yeni Haberler Bölümü -->
   <section id="haberler">
     <div class="content">
       <h1>Yeni Haberler</h1>
@@ -194,6 +176,7 @@
     </div>
   </section>
 
+  <!-- Evren Bilgisi Bölümü -->
   <section id="evren">
     <div class="content">
       <h1>Evrenle İlgili Bilgiler</h1>
@@ -203,20 +186,7 @@
   </section>
 
 <script>
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      document.getElementById('splash').style.display = 'none';
-      revealContent();
-    }, 3000);
-  });
-
-  function revealContent() {
-    const sections = document.querySelectorAll('.content');
-    sections.forEach(section => {
-      section.classList.add('visible');
-    });
-  }
-
+  // Hamburger menü aç/kapat
   const hamburger = document.getElementById('hamburger');
   const menu = document.getElementById('menu');
 
@@ -225,6 +195,7 @@
     hamburger.classList.toggle('active');
   });
 
+  // Arka plan yıldız animasyonu
   const canvas = document.getElementById("stars");
   const ctx = canvas.getContext("2d");
   let stars = [];
