@@ -17,33 +17,8 @@
       background: #0d1b2a;
       color: #fff;
       overflow-x: hidden;
-      height: 100%;
     }
 
-    /* Başlangıç Ekranı */
-    #splash {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: #001f3f;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #00ffff;
-      font-size: 2.5rem;
-      font-weight: 700;
-      z-index: 9999;
-      flex-direction: column;
-      user-select: none;
-    }
-
-    #splash small {
-      margin-top: 1rem;
-      font-weight: 300;
-      font-size: 1rem;
-      color: #33ffffcc;
-    }
-
-    /* Arka plan yıldızlar */
     canvas {
       position: fixed;
       top: 0; left: 0;
@@ -51,7 +26,6 @@
       z-index: -2;
     }
 
-    /* Hamburger Menü */
     .hamburger {
       position: fixed;
       top: 20px;
@@ -72,16 +46,6 @@
       transition: 0.3s ease;
     }
 
-    .hamburger.active div:nth-child(1) {
-      transform: rotate(45deg) translate(5px, 5px);
-    }
-    .hamburger.active div:nth-child(2) {
-      opacity: 0;
-    }
-    .hamburger.active div:nth-child(3) {
-      transform: rotate(-45deg) translate(6px, -6px);
-    }
-
     .menu {
       position: fixed;
       top: 0;
@@ -96,207 +60,98 @@
       flex-direction: column;
     }
 
-    .menu.active {
-      right: 0;
-    }
+    .menu.active { right: 0; }
 
     .menu a {
       color: #00ffff;
       margin-bottom: 20px;
       text-decoration: none;
       font-size: 18px;
-      transition: color 0.3s ease;
     }
 
-    .menu a:hover {
-      color: #ffffff;
-    }
-
-    /* Bölümler */
     section {
       min-height: 100vh;
-      padding: 100px 20px 60px;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      transition: background-color 0.6s ease;
+      padding: 60px 20px;
     }
 
     .content {
-      max-width: 700px;
-      padding: 30px;
       background: rgba(255,255,255,0.05);
       border-radius: 16px;
       box-shadow: 0 0 20px rgba(0,255,255,0.2);
-      color: #e0e0e0;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.8s ease;
-    }
-
-    .content.visible {
-      opacity: 1;
-      transform: translateY(0);
+      padding: 40px;
+      max-width: 700px;
     }
 
     h1 {
-      color: #00ffff;
-      margin-bottom: 16px;
       font-size: 2.5em;
+      color: #00ffff;
+      margin-bottom: 20px;
     }
 
     p {
-      font-size: 1.15rem;
-      line-height: 1.5;
+      font-size: 1.1rem;
       color: #b0f0f0cc;
     }
 
-    /* Bölümlere özel arka plan renkleri */
-    #haberler {
-      background-color: #001f3f; /* Koyu lacivert */
-    }
-
-    #evren {
-      background-color: #00334d; /* Daha açık mavi-yeşil */
-    }
-
-    /* Yeni Haberler sayfası stili */
-    #haberlerPage {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-color: rgba(0, 31, 63, 0.95);
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      color: #00ffff;
-      padding: 20px;
-      z-index: 10000;
-      overflow-y: auto;
-    }
-
-    #haberlerPage h1 {
+    a.button {
+      display: inline-block;
       margin-top: 20px;
-      font-size: 3rem;
-      text-align: center;
-    }
-
-    #haberlerPage .closeBtn {
-      margin-top: 10px;
-      background-color: #00ffff;
-      border: none;
-      padding: 10px 20px;
-      font-weight: 700;
+      background: #00ffff;
       color: #001f3f;
+      padding: 12px 24px;
       border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      align-self: flex-end;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s ease;
     }
 
-    #haberlerPage .closeBtn:hover {
-      background-color: #33ffff;
+    a.button:hover {
+      background: #00cccc;
     }
-
-    #haberlerPage .contentText {
-      margin-top: 30px;
-      max-width: 800px;
-      color: #b0f0f0cc;
-      font-size: 1.2rem;
-      line-height: 1.6;
-      text-align: left;
-    }
-
   </style>
 </head>
 <body>
 
-  <!-- Başlangıç Ekranı -->
-  <div id="splash">
-    Evreni Keşfet
-    <small>Daha fazla bilgi için aşağı kaydırın</small>
-  </div>
+<canvas id="stars"></canvas>
 
-  <!-- Arka plan yıldızlar -->
-  <canvas id="stars"></canvas>
+<!-- Menü -->
+<div class="hamburger" onclick="toggleMenu()">
+  <div></div><div></div><div></div>
+</div>
+<nav class="menu" id="menu">
+  <a href="#haberler">Yeni Haberler</a>
+  <a href="#evren">Evren Bilgisi</a>
+</nav>
 
-  <!-- Hamburger Menü -->
-  <div class="hamburger" id="hamburger">
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
-
-  <!-- Menü -->
-  <nav class="menu" id="menu">
-    <a href="#" id="openHaberlerLink">Yeni Haberler</a>
-    <a href="#evren">Evren Bilgisi</a>
-  </nav>
-
-  <!-- Ana sayfa bölümleri -->
-  <section id="evren">
-    <div class="content visible">
-      <h1>Evrenle İlgili Bilgiler</h1>
-      <p>Galaksilerden kara deliklere kadar evrenin derinliklerine doğru bir yolculuğa çıkın.</p>
-    </div>
-  </section>
-
-  <!-- Yeni Haberler özel sayfası -->
-  <div id="haberlerPage">
-    <button class="closeBtn" id="closeHaberler">Ana Sayfaya Dön</button>
+<!-- Yeni Haberler -->
+<section id="haberler">
+  <div class="content">
     <h1>Yeni Haberler</h1>
-    <div class="contentText">
-      <p>Burada güncel bilim ve uzay haberlerini paylaşabilirsiniz.</p>
-      <ul>
-        <li>Uzay teleskoplarından yeni görüntüler</li>
-        <li>Son keşifler ve araştırmalar</li>
-        <li>Bilim dünyasından önemli gelişmeler</li>
-      </ul>
-      <p>Daha fazla içerik eklendikçe burası genişletilebilir.</p>
-    </div>
+    <p>Bilim ve uzaya dair en güncel gelişmeleri burada bulabilirsiniz.</p>
+    <a href="haberler.html" class="button">Yeni haberleri öğrenmek için tıklayın</a>
   </div>
+</section>
+
+<!-- Evren -->
+<section id="evren">
+  <div class="content">
+    <h1>Evren Bilgisi</h1>
+    <p>Galaksilerden kara deliklere kadar evrenin gizemlerini keşfedin.</p>
+    <a href="evren.html" class="button">Evren hakkında daha fazla bilgi</a>
+  </div>
+</section>
 
 <script>
-  // Splash ekranı 3 saniye sonra gizle
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      document.getElementById('splash').style.display = 'none';
-    }, 3000);
-  });
+  const menu = document.getElementById("menu");
+  function toggleMenu() {
+    menu.classList.toggle("active");
+  }
 
-  // Hamburger menü aç/kapat
-  const hamburger = document.getElementById('hamburger');
-  const menu = document.getElementById('menu');
-
-  hamburger.addEventListener('click', () => {
-    menu.classList.toggle('active');
-    hamburger.classList.toggle('active');
-  });
-
-  // Yeni Haberler sayfasını aç/kapat
-  const openHaberlerLink = document.getElementById('openHaberlerLink');
-  const haberlerPage = document.getElementById('haberlerPage');
-  const closeHaberlerBtn = document.getElementById('closeHaberler');
-
-  openHaberlerLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    // Menü kapat
-    menu.classList.remove('active');
-    hamburger.classList.remove('active');
-    // Yeni Haberler sayfasını göster
-    haberlerPage.style.display = 'flex';
-    // Ana sayfa bölümlerini gizle
-    document.querySelectorAll('section').forEach(s => s.style.display = 'none');
-  });
-
-  closeHaberlerBtn.addEventListener('click', () => {
-    // Yeni Haberler sayfasını gizle
-    haberlerPage.style.display = 'none';
-    // Ana sayfa bölümlerini göster
-    document.querySelectorAll('section').forEach(s => s.style.display = 'flex');
-  });
-
-  // Arka plan yıldız animasyonu
   const canvas = document.getElementById("stars");
   const ctx = canvas.getContext("2d");
   let stars = [];
@@ -308,7 +163,7 @@
 
   function createStars() {
     stars = [];
-    for (let i = 0; i < 70; i++) {
+    for (let i = 0; i < 80; i++) {
       stars.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
@@ -342,8 +197,6 @@
   resizeCanvas();
   createStars();
   drawStars();
-
 </script>
-
 </body>
 </html>
