@@ -20,9 +20,9 @@
       height: 100%;
     }
 
-    /* Başlangıç ekranı - kaydırma açık */
+    /* Başlangıç ekranı */
     #splash {
-      position: relative; /* fixed değil */
+      position: relative;
       width: 100%;
       height: 100vh;
       background: #001f3f;
@@ -34,13 +34,12 @@
       font-weight: 700;
       flex-direction: column;
       user-select: none;
-      opacity: 1;
-      transition: opacity 1.5s ease;
+      transition: transform 0.7s ease;
       z-index: 10;
     }
 
     #splash.hide {
-      opacity: 0;
+      transform: translateY(-100%);
       pointer-events: none;
       user-select: none;
       height: 0;
@@ -62,7 +61,7 @@
       z-index: -2;
     }
 
-    /* Hamburger Menü - Havalı Stil */
+    /* Hamburger Menü */
     .hamburger {
       position: fixed;
       top: 20px;
@@ -91,7 +90,6 @@
       position: relative;
     }
 
-    /* Parlama efekti */
     .hamburger div::before {
       content: '';
       position: absolute;
@@ -197,14 +195,13 @@
 
     /* Bölümlere özel arka plan renkleri */
     #haberler {
-      background-color: #001f3f; /* Koyu lacivert */
+      background-color: #001f3f;
     }
 
     #evren {
-      background-color: #00334d; /* Daha açık mavi-yeşil */
+      background-color: #00334d;
     }
 
-    /* Yeni eklenen bölümler için örnek renkler */
     #bilim {
       background-color: #002a4a;
     }
@@ -277,16 +274,17 @@
   </section>
 
 <script>
-  // Splash ekranını yumuşak gizle
+  // Splash ekranı açılır açılmaz yukarı kaydır (transform: translateY(-100%))
   window.addEventListener('load', () => {
+    const splash = document.getElementById('splash');
+    // küçük timeout ile hemen animasyon başlatıyoruz (böylece transition çalışıyor)
     setTimeout(() => {
-      const splash = document.getElementById('splash');
       splash.classList.add('hide');
       revealContent();
-    }, 2000); // 2 saniye sonra kaybolsun
+    }, 50);
   });
 
-  // İçerik bölümlerinin animasyonla görünmesini sağla
+  // Bölüm içeriklerini animasyonla göster
   function revealContent() {
     const sections = document.querySelectorAll('.content');
     sections.forEach(section => {
