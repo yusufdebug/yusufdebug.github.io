@@ -15,8 +15,8 @@
 
     html, body {
       font-family: 'Poppins', sans-serif;
-      background: black;
-      color: white;
+      background: #0d1b2a;
+      color: #ffffff;
       overflow-x: hidden;
     }
 
@@ -25,43 +25,6 @@
       top: 0;
       left: 0;
       z-index: -2;
-    }
-
-    /* GİRİŞ EKRANI */
-    #splash {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: black;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      z-index: 10000;
-      transition: opacity 1s ease;
-    }
-
-    #splash h1 {
-      font-size: 32px;
-      color: #0ff;
-      margin-bottom: 20px;
-    }
-
-    #splash button {
-      background: #0ff;
-      color: black;
-      border: none;
-      padding: 12px 24px;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 6px;
-      transition: background 0.3s ease;
-    }
-
-    #splash button:hover {
-      background: #0cc;
     }
 
     /* Hamburger Menü */
@@ -79,7 +42,7 @@
     }
 
     .hamburger div {
-      background-color: #0ff;
+      background-color: #00ffff;
       height: 4px;
       border-radius: 4px;
     }
@@ -90,7 +53,7 @@
       right: -260px;
       width: 260px;
       height: 100%;
-      background: #111;
+      background: #13293d;
       padding: 80px 20px;
       transition: right 0.3s ease;
       z-index: 998;
@@ -101,7 +64,7 @@
     }
 
     .menu a {
-      color: #0ff;
+      color: #00ffff;
       display: block;
       margin-bottom: 20px;
       text-decoration: none;
@@ -109,10 +72,9 @@
     }
 
     .menu a:hover {
-      color: white;
+      color: #ffffff;
     }
 
-    /* Bölümler */
     section {
       min-height: 100vh;
       padding: 100px 20px 60px;
@@ -126,9 +88,9 @@
       max-width: 700px;
       padding: 30px;
       background: rgba(255,255,255,0.05);
-      border: 2px solid #0ff;
+      border: 2px solid #00ffff;
       border-radius: 16px;
-      box-shadow: 0 0 15px rgba(0,255,255,0.2);
+      box-shadow: 0 0 20px rgba(0,255,255,0.2);
       opacity: 0;
       transform: translateY(40px);
       transition: all 0.8s ease;
@@ -140,23 +102,19 @@
     }
 
     h1 {
-      color: #0ff;
+      color: #00ffff;
       margin-bottom: 16px;
+      font-size: 2em;
     }
 
     p {
-      color: #ccc;
+      color: #cccccc;
     }
   </style>
 </head>
 <body>
 
-  <!-- GİRİŞ EKRANI -->
-  <div id="splash">
-    <h1>Evreni Keşfetmeye Hazır mısın?</h1>
-    <button onclick="startSite()">Başla</button>
-  </div>
-
+  <!-- Arka Plan (Yıldızlar) -->
   <canvas id="stars"></canvas>
 
   <!-- Hamburger Menü -->
@@ -176,7 +134,7 @@
   <section id="haberler">
     <div class="content">
       <h1>Yeni Haberler</h1>
-      <p>En güncel bilim ve uzay haberlerini burada keşfedin.</p>
+      <p>Bilim ve uzayla ilgili en son gelişmeleri burada bulabilirsiniz.</p>
     </div>
   </section>
 
@@ -184,26 +142,19 @@
   <section id="evren">
     <div class="content">
       <h1>Evrenle İlgili Bilgiler</h1>
-      <p>Galaksilerden kara deliklere kadar evrenin sırlarını öğrenin.</p>
+      <p>Galaksilerden kara deliklere kadar evrenin derinliklerine doğru bir yolculuğa çıkın.</p>
     </div>
   </section>
 
   <script>
-    // Giriş ekranını gizle
-    function startSite() {
-      const splash = document.getElementById('splash');
-      splash.style.opacity = '0';
-      setTimeout(() => splash.style.display = 'none', 1000);
-    }
-
-    // Hamburger menü
+    // Hamburger Menü Aç/Kapat
     const hamburger = document.getElementById('hamburger');
     const menu = document.getElementById('menu');
     hamburger.addEventListener('click', () => {
       menu.classList.toggle('active');
     });
 
-    // Scroll ile içerikleri animasyonlu göster
+    // Kaydırmayla içerik görünme animasyonu
     const sections = document.querySelectorAll('.content');
     const showOnScroll = () => {
       const trigger = window.innerHeight * 0.85;
@@ -217,7 +168,7 @@
     window.addEventListener('scroll', showOnScroll);
     window.addEventListener('load', showOnScroll);
 
-    // Yıldız animasyonu (performanslı)
+    // Arka plan yıldız animasyonu
     const canvas = document.getElementById("stars");
     const ctx = canvas.getContext("2d");
     let stars = [];
@@ -241,7 +192,7 @@
 
     function drawStars() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "#0ff";
+      ctx.fillStyle = "#00ffff";
       stars.forEach(star => {
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.r, 0, 2 * Math.PI);
@@ -267,4 +218,3 @@
 
 </body>
 </html>
-
