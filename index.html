@@ -20,7 +20,6 @@
       height: 100%;
     }
 
-    /* Arka plan yıldızlar */
     canvas {
       position: fixed;
       top: 0; left: 0;
@@ -28,7 +27,6 @@
       z-index: -2;
     }
 
-    /* Hamburger Menü */
     .hamburger {
       position: fixed;
       top: 20px;
@@ -120,7 +118,6 @@
       color: #ffffff;
     }
 
-    /* Bölümler */
     section {
       min-height: 100vh;
       padding: 100px 20px 60px;
@@ -128,7 +125,6 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      transition: background-color 0.6s ease;
     }
 
     .content {
@@ -138,9 +134,6 @@
       border-radius: 16px;
       box-shadow: 0 0 20px rgba(0,255,255,0.2);
       color: #e0e0e0;
-      opacity: 1;
-      transform: translateY(0);
-      transition: all 0.8s ease;
     }
 
     h1 {
@@ -155,109 +148,96 @@
       color: #b0f0f0cc;
     }
 
-    /* Bölümlere özel arka plan renkleri */
-    #evreni-kesfet {
-      background-color: #001122;
-    }
-
-    #haberler {
-      background-color: #001f3f;
-    }
-
-    #evren {
-      background-color: #00334d;
-    }
-
-    #bilim {
-      background-color: #002a4a;
-    }
-
-    #soru {
-      background-color: #001122;
-    }
-
-    #astronomi-galerisi {
-      background-color: #002233;
-    }
-
-    #bilimsel-sorular {
-      background-color: #003355;
-    }
-
-    #tarih-uzay-yolculuklari {
-      background-color: #001f2f;
-    }
-
-    #uzay-takvimi {
-      background-color: #002844;
-    }
-
-    #bilim-kitaplari {
-      background-color: #001d2d;
-    }
-
-    #ziyaretci-yorumu {
-      background-color: #00304d;
-    }
+    section:nth-child(odd) { background-color: #001122; }
+    section:nth-child(even) { background-color: #002233; }
 
   </style>
 </head>
 <body>
 
-  <!-- Arka plan yıldızlar -->
   <canvas id="stars"></canvas>
 
-  <!-- Hamburger Menü -->
   <div class="hamburger" id="hamburger">
-    <div></div>
-    <div></div>
-    <div></div>
+    <div></div><div></div><div></div>
   </div>
 
-  <!-- Menü -->
   <nav class="menu" id="menu">
     <a href="#haberler">Yeni Haberler</a>
     <a href="#evren">Evren Bilgisi</a>
-    <a href="#bilim">Bilim</a>
-    <a href="#soru">Soru</a>
+    <!-- <a href="#bilim">Bilim</a> Silindi -->
     <a href="#astronomi-galerisi">Astronomi Galerisi</a>
-    <a href="#bilimsel-sorular">Bilimsel Sorular &amp; Cevaplar</a>
-    <a href="#tarih-uzay-yolculuklari">Tarihte Uzay Yolculukları</a>
+    <a href="#tarih-uzay-yolculuklari">Tarihte Uzay</a>
     <a href="#uzay-takvimi">Uzay Takvimi</a>
-    <a href="#bilim-kitaplari">Bilim Kitapları ve Belgeseller</a>
-    <a href="#ziyaretci-yorumu">Ziyaretçi Yorumu / Etkileşim</a>
+    <a href="#bilim-kitaplari">Bilim Kitapları</a>
+    <a href="#ziyaretci-yorumu">Ziyaretçi Yorumu</a>
   </nav>
 
-  <!-- Evreni Keşfet Bölümü (En Üstte) -->
   <section id="evreni-kesfet">
     <div class="content">
       <h1>Evreni Keşfet</h1>
-      <p>Bilim ve uzay dünyasına hoş geldiniz! Sayfayı aşağı kaydırarak evrenin sırlarına göz atabilirsiniz.</p>
+      <p>Bilim ve uzay dünyasına hoş geldiniz! Aşağı kaydırarak evreni keşfet.</p>
     </div>
   </section>
 
-  <!-- Yeni Haberler Bölümü -->
-  <section id="haberler">
-    <div class="content">
-      <h1>Yeni Haberler</h1>
-      <p>Bilim ve uzayla ilgili en son gelişmeleri burada bulabilirsiniz.</p>
-      <p><a href="yeni-haberler.html" style="color:#00ffff; text-decoration: underline;">Yeni haberleri öğrenmek için tıklayın</a></p>
-    </div>
-  </section>
+  <section id="haberler"><div class="content"><h1>Yeni Haberler</h1><p>Son gelişmeleri burada bulabilirsiniz.</p></div></section>
+  <section id="evren"><div class="content"><h1>Evren</h1><p>Galaksilerden kara deliklere kadar bilgiler.</p></div></section>
+  <!-- <section id="bilim"><div class="content"><h1>Bilim</h1><p>Yeni bilimsel gelişmeleri öğren.</p></div></section> Silindi -->
+  <section id="astronomi-galerisi"><div class="content"><h1>Astronomi Galerisi</h1><p>Uzay görselleri burada.</p></div></section>
+  <section id="tarih-uzay-yolculuklari"><div class="content"><h1>Uzay Yolculukları</h1><p>Tarihteki uzay maceraları.</p></div></section>
+  <section id="uzay-takvimi"><div class="content"><h1>Uzay Takvimi</h1><p>Etkinlikler burada.</p></div></section>
+  <section id="bilim-kitaplari"><div class="content"><h1>Bilim Kitapları</h1><p>Kitap önerileri burada.</p></div></section>
+  <section id="ziyaretci-yorumu"><div class="content"><h1>Ziyaretçi Yorumu</h1><p>Görüşlerinizi paylaşın.</p></div></section>
 
-  <!-- Evren Bölümü -->
-  <section id="evren">
-    <div class="content">
-      <h1>Evrenle İlgili Bilgiler</h1>
-      <p>Galaksilerden kara deliklere kadar evrenin derinliklerine doğru bir yolculuğa çıkın.</p>
-      <p><a href="evren-bilgisi.html" style="color:#00ffff; text-decoration: underline;">Evren hakkında daha fazla bilgi için tıklayın</a></p>
-    </div>
-  </section>
+  <script>
+    // Hamburger menü kontrolü
+    const hamburger = document.getElementById('hamburger');
+    const menu = document.getElementById('menu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      menu.classList.toggle('active');
+    });
 
-  <!-- Bilim Bölümü -->
-  <section id="bilim">
-    <div class="content">
-      <h1>Bilimsel Keşifler</h1>
-      <p>En yeni bilimsel buluşlar ve evrenin sırları üzerine derinlemesine bilgiler.</p>
-      <p><a href="bilim.html" style="color:#00ffff; text-decoration: underline;">Bilim hakkında detaylı bilgi için tıklayın</a></p>
-    </div>
+    // Yıldız animasyonu
+    const canvas = document.getElementById("stars");
+    const ctx = canvas.getContext("2d");
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    const stars = [];
+    const starCount = 300;
+
+    for (let i = 0; i < starCount; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 1.2,
+        alpha: Math.random(),
+        delta: Math.random() * 0.02
+      });
+    }
+
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let star of stars) {
+        star.alpha += star.delta;
+        if (star.alpha <= 0 || star.alpha >= 1) {
+          star.delta *= -1;
+        }
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+        ctx.fill();
+      }
+      requestAnimationFrame(drawStars);
+    }
+
+    drawStars();
+  </script>
+
+</body>
+</html>
