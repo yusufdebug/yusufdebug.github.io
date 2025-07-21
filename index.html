@@ -33,97 +33,38 @@
       left: 0;
       width: 100%;
       background-color: #000;
-      padding: 12px 0;
+      padding: 10px 20px;
       z-index: 1000;
-      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       box-shadow: 0 2px 8px rgba(0,0,0,0.6);
     }
 
-    .top-banner a {
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.4rem;
+      font-weight: bold;
       color: #00ffff;
-      margin: 0 15px;
+      gap: 8px;
+    }
+
+    .logo img {
+      width: 32px;
+      height: 32px;
+    }
+
+    .menu-links a {
+      color: #00ffff;
+      margin-left: 20px;
       font-size: 1.1rem;
       text-decoration: none;
       font-weight: 500;
       transition: color 0.3s;
     }
 
-    .top-banner a:hover {
-      color: #ffffff;
-    }
-
-    .hamburger {
-      position: fixed;
-      top: 60px; /* Altına alındı */
-      left: 20px;
-      width: 40px;
-      height: 30px;
-      cursor: pointer;
-      z-index: 999;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      filter: drop-shadow(0 2px 2px rgba(0,255,255,0.3));
-      transition: transform 0.3s ease;
-    }
-
-    .hamburger:hover {
-      transform: scale(1.1);
-    }
-
-    .hamburger div {
-      background: linear-gradient(90deg, #00ffff, #0080ff);
-      height: 5px;
-      border-radius: 8px;
-      box-shadow: 0 0 6px #00ffff;
-      transition: all 0.4s ease;
-      position: relative;
-    }
-
-    .hamburger.active div:nth-child(1) {
-      transform: rotate(45deg) translate(7px, 7px);
-      background: linear-gradient(90deg, #ff00ff, #ff0080);
-      box-shadow: 0 0 8px #ff00ff;
-    }
-
-    .hamburger.active div:nth-child(2) {
-      opacity: 0;
-      transform: translateX(20px);
-    }
-
-    .hamburger.active div:nth-child(3) {
-      transform: rotate(-45deg) translate(7px, -7px);
-      background: linear-gradient(90deg, #ff00ff, #ff0080);
-      box-shadow: 0 0 8px #ff00ff;
-    }
-
-    .menu {
-      position: fixed;
-      top: 0;
-      right: -320px;
-      width: 320px;
-      height: 100%;
-      background: #13293d;
-      padding: 80px 20px;
-      transition: right 0.3s ease;
-      z-index: 998;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .menu.active {
-      right: 0;
-    }
-
-    .menu a {
-      color: #00ffff;
-      margin-bottom: 20px;
-      text-decoration: none;
-      font-size: 18px;
-      transition: color 0.3s ease;
-    }
-
-    .menu a:hover {
+    .menu-links a:hover {
       color: #ffffff;
     }
 
@@ -201,27 +142,22 @@
 </head>
 <body>
 
+  <!-- Yıldızlı arka plan -->
   <canvas id="stars"></canvas>
 
   <!-- Sabit üst banner -->
   <div class="top-banner">
-    <a href="#haberler">Yeni Haberler</a>
-    <a href="#evren">Evren</a>
-    <a href="#astronomi-galerisi">Astronomi Galerisi</a>
-    <a href="#uzay-takvimi">Uzay Takvimi</a>
+    <div class="logo">
+      <img src="https://cdn-icons-png.flaticon.com/512/3212/3212608.png" alt="logo">
+      Evreni Keşfet
+    </div>
+    <div class="menu-links">
+      <a href="#haberler">Yeni Haberler</a>
+      <a href="#evren">Evren</a>
+      <a href="#astronomi-galerisi">Astronomi Galerisi</a>
+      <a href="#uzay-takvimi">Uzay Takvimi</a>
+    </div>
   </div>
-
-  <div class="hamburger" id="hamburger">
-    <div></div><div></div><div></div>
-  </div>
-
-  <nav class="menu" id="menu">
-    <a href="#haberler">Yeni Haberler</a>
-    <a href="#evren">Evren Bilgisi</a>
-    <a href="#astronomi-galerisi">Astronomi Galerisi</a>
-    <a href="#uzay-takvimi">Uzay Takvimi</a>
-    <a href="#ziyaretci-yorumu">Ziyaretçi Yorumu</a>
-  </nav>
 
   <section id="hero">
     <div class="hero-content">
@@ -231,27 +167,36 @@
     </div>
   </section>
 
-  <section id="evreni-kesfet">
+  <section id="haberler">
     <div class="content">
-      <h1>Evreni Keşfet</h1>
-      <p>Bilim ve uzay dünyasına hoş geldiniz! Aşağı kaydırarak evreni keşfet.</p>
+      <h1>Yeni Haberler</h1>
+      <p>Uzay dünyasındaki en güncel gelişmeleri burada bulabilirsiniz.</p>
     </div>
   </section>
 
-  <section id="haberler"><div class="content"><h1>Yeni Haberler</h1><p>Son gelişmeleri burada bulabilirsiniz.</p></div></section>
-  <section id="evren"><div class="content"><h1>Evren</h1><p>Galaksilerden kara deliklere kadar bilgiler.</p></div></section>
-  <section id="astronomi-galerisi"><div class="content"><h1>Astronomi Galerisi</h1><p>Uzay görselleri burada.</p></div></section>
-  <section id="uzay-takvimi"><div class="content"><h1>Uzay Takvimi</h1><p>Etkinlikler burada.</p></div></section>
-  <section id="ziyaretci-yorumu"><div class="content"><h1>Ziyaretçi Yorumu</h1><p>Görüşlerinizi paylaşın.</p></div></section>
+  <section id="evren">
+    <div class="content">
+      <h1>Evren</h1>
+      <p>Galaksiler, yıldızlar, karadelikler ve daha fazlası hakkında bilgi edinin.</p>
+    </div>
+  </section>
 
+  <section id="astronomi-galerisi">
+    <div class="content">
+      <h1>Astronomi Galerisi</h1>
+      <p>Etkileyici uzay görselleri ve teleskop görüntüleri.</p>
+    </div>
+  </section>
+
+  <section id="uzay-takvimi">
+    <div class="content">
+      <h1>Uzay Takvimi</h1>
+      <p>Önemli gök olayları, fırlatma tarihleri ve etkinlik takvimi.</p>
+    </div>
+  </section>
+
+  <!-- Yıldız efekt scripti -->
   <script>
-    const hamburger = document.getElementById('hamburger');
-    const menu = document.getElementById('menu');
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('active');
-      menu.classList.toggle('active');
-    });
-
     const canvas = document.getElementById("stars");
     const ctx = canvas.getContext("2d");
 
@@ -259,13 +204,12 @@
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     }
+
     window.addEventListener("resize", resizeCanvas);
     resizeCanvas();
 
     const stars = [];
-    const starCount = 300;
-
-    for (let i = 0; i < starCount; i++) {
+    for (let i = 0; i < 300; i++) {
       stars.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
@@ -279,9 +223,7 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       for (let star of stars) {
         star.alpha += star.delta;
-        if (star.alpha <= 0 || star.alpha >= 1) {
-          star.delta *= -1;
-        }
+        if (star.alpha <= 0 || star.alpha >= 1) star.delta *= -1;
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
