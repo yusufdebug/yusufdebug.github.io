@@ -27,9 +27,34 @@
       z-index: -2;
     }
 
+    .top-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #000;
+      padding: 12px 0;
+      z-index: 1000;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    }
+
+    .top-banner a {
+      color: #00ffff;
+      margin: 0 15px;
+      font-size: 1.1rem;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .top-banner a:hover {
+      color: #ffffff;
+    }
+
     .hamburger {
       position: fixed;
-      top: 20px;
+      top: 60px; /* Altına alındı */
       left: 20px;
       width: 40px;
       height: 30px;
@@ -53,22 +78,6 @@
       box-shadow: 0 0 6px #00ffff;
       transition: all 0.4s ease;
       position: relative;
-    }
-
-    .hamburger div::before {
-      content: '';
-      position: absolute;
-      top: -4px; left: -10px;
-      width: 20px; height: 12px;
-      background: linear-gradient(120deg, rgba(255,255,255,0.7), rgba(255,255,255,0));
-      border-radius: 10px;
-      filter: blur(8px);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .hamburger:hover div::before {
-      opacity: 1;
     }
 
     .hamburger.active div:nth-child(1) {
@@ -120,7 +129,7 @@
 
     section {
       min-height: 100vh;
-      padding: 100px 20px 60px;
+      padding: 120px 20px 60px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -151,11 +160,56 @@
     section:nth-child(odd) { background-color: #001122; }
     section:nth-child(even) { background-color: #002233; }
 
+    #hero {
+      height: 60vh;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    .hero-content {
+      color: #fff;
+    }
+
+    .hero-content h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-content p {
+      font-size: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-content button {
+      padding: 12px 24px;
+      font-size: 1rem;
+      color: #000;
+      background: #00ffff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .hero-content button:hover {
+      background: #0080ff;
+    }
   </style>
 </head>
 <body>
 
   <canvas id="stars"></canvas>
+
+  <!-- Sabit üst banner -->
+  <div class="top-banner">
+    <a href="#haberler">Yeni Haberler</a>
+    <a href="#evren">Evren</a>
+    <a href="#astronomi-galerisi">Astronomi Galerisi</a>
+    <a href="#uzay-takvimi">Uzay Takvimi</a>
+  </div>
 
   <div class="hamburger" id="hamburger">
     <div></div><div></div><div></div>
@@ -164,13 +218,18 @@
   <nav class="menu" id="menu">
     <a href="#haberler">Yeni Haberler</a>
     <a href="#evren">Evren Bilgisi</a>
-    <!-- <a href="#bilim">Bilim</a> Silindi -->
     <a href="#astronomi-galerisi">Astronomi Galerisi</a>
-    <a href="#tarih-uzay-yolculuklari">Tarihte Uzay</a>
     <a href="#uzay-takvimi">Uzay Takvimi</a>
-    <a href="#bilim-kitaplari">Bilim Kitapları</a>
     <a href="#ziyaretci-yorumu">Ziyaretçi Yorumu</a>
   </nav>
+
+  <section id="hero">
+    <div class="hero-content">
+      <h1>Çalışmalarımız</h1>
+      <p>Evreni keşfedin — projeler, araştırmalar ve daha fazlası.</p>
+      <button onclick="location.href='#haberler'">Hemen Başla</button>
+    </div>
+  </section>
 
   <section id="evreni-kesfet">
     <div class="content">
@@ -181,15 +240,11 @@
 
   <section id="haberler"><div class="content"><h1>Yeni Haberler</h1><p>Son gelişmeleri burada bulabilirsiniz.</p></div></section>
   <section id="evren"><div class="content"><h1>Evren</h1><p>Galaksilerden kara deliklere kadar bilgiler.</p></div></section>
-  <!-- <section id="bilim"><div class="content"><h1>Bilim</h1><p>Yeni bilimsel gelişmeleri öğren.</p></div></section> Silindi -->
   <section id="astronomi-galerisi"><div class="content"><h1>Astronomi Galerisi</h1><p>Uzay görselleri burada.</p></div></section>
-  <section id="tarih-uzay-yolculuklari"><div class="content"><h1>Uzay Yolculukları</h1><p>Tarihteki uzay maceraları.</p></div></section>
   <section id="uzay-takvimi"><div class="content"><h1>Uzay Takvimi</h1><p>Etkinlikler burada.</p></div></section>
-  <section id="bilim-kitaplari"><div class="content"><h1>Bilim Kitapları</h1><p>Kitap önerileri burada.</p></div></section>
   <section id="ziyaretci-yorumu"><div class="content"><h1>Ziyaretçi Yorumu</h1><p>Görüşlerinizi paylaşın.</p></div></section>
 
   <script>
-    // Hamburger menü kontrolü
     const hamburger = document.getElementById('hamburger');
     const menu = document.getElementById('menu');
     hamburger.addEventListener('click', () => {
@@ -197,7 +252,6 @@
       menu.classList.toggle('active');
     });
 
-    // Yıldız animasyonu
     const canvas = document.getElementById("stars");
     const ctx = canvas.getContext("2d");
 
