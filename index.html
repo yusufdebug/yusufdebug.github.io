@@ -146,7 +146,7 @@
       padding: 40px 20px;
       text-align: left;
       max-width: 700px;
-      margin: 40px auto 80px; /* Üstten boşluk arttırıldı */
+      margin: 40px auto 80px;
       border-radius: 16px;
       box-shadow: 0 0 30px #00ffffaa;
       transition: box-shadow 0.3s ease;
@@ -236,7 +236,7 @@
       Evreni Keşfet
     </div>
     <div class="menu-links">
-      <a href="#haberler">Yeni Haberler</a>
+      <a href="haberler.html">Yeni Haberler</a>
       <a href="#evren">Evren</a>
       <a href="#astronomi-galerisi">Astronomi Galerisi</a>
       <a href="#uzay-takvimi">Uzay Takvimi</a>
@@ -255,7 +255,7 @@
     <div class="content">
       <h1>Yeni Haberler</h1>
       <p>Uzay dünyasındaki en güncel gelişmeleri burada bulabilirsiniz.</p>
-      <a href="https://example.com/yenihaberler" target="_blank" style="color:#00ffff;">Daha fazla</a>
+      <a href="haberler.html" style="color:#00ffff; font-weight: 600; text-decoration: underline;">Yeni Haberler Sayfasına Geç</a>
     </div>
   </section>
 
@@ -299,56 +299,4 @@
     const ctx = canvas.getContext("2d");
 
     function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-
-    window.addEventListener("resize", resizeCanvas);
-    resizeCanvas();
-
-    const stars = [];
-    for (let i = 0; i < 300; i++) {
-      stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        radius: Math.random() * 1.2,
-        alpha: Math.random(),
-        delta: Math.random() * 0.02,
-      });
-    }
-
-    function drawStars() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let star of stars) {
-        star.alpha += star.delta;
-        if (star.alpha <= 0 || star.alpha >= 1) star.delta *= -1;
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
-        ctx.fill();
-      }
-      requestAnimationFrame(drawStars);
-    }
-
-    drawStars();
-
-    // Yorum formu işlemleri
-    const form = document.getElementById("yorumForm");
-    const yorumListesi = document.getElementById("yorumListesi");
-    const yorumMetni = document.getElementById("yorumMetni");
-
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const text = yorumMetni.value.trim();
-      if (text) {
-        const div = document.createElement("div");
-        div.classList.add("yorum");
-        div.textContent = text;
-        yorumListesi.prepend(div);
-        yorumMetni.value = "";
-      }
-    });
-  </script>
-
-</body>
-</html>
+      canvas.width = window
